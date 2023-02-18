@@ -6,10 +6,10 @@ let theme = createTheme({
   palette: {
     type: 'dark',
     primary: {
-      main: '#627994',
+      main: '#4d5054',
     },
     secondary: {
-      main: '#a6c8e4',
+      main: '#9aa0a0',
     },
     error: {
       main: '#af231a',

@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST={}
+self.__REACT_LOADABLE_MANIFEST={"index.js -> @/components/MultiPlayer":{"id":"index.js -> @/components/MultiPlayer","files":["static/chunks/components_MultiPlayer_jsx.js"]}}

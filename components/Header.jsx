@@ -6,10 +6,10 @@ import { styled } from "@mui/system";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
 import BackToTop from "@/components/BackToTop";
-import IconButton from "@mui/material/IconButton"
-import Home from "@mui/icons-material/Home"
+import IconButton from "@mui/material/IconButton";
+import Home from "@mui/icons-material/Home";
 import MuiNextLink from "@/components/MuiNextLink";
-import Navbar from '@/components/Navbar'
+import Navbar from '@/components/Navbar';
 import SideDrawer from "@/components/SideDrawer";
 import HideOnScroll from "@/components/HideOnScroll";
 import { ThemeProvider } from '@mui/material/styles';
@@ -45,7 +45,7 @@ const Header = () => {
                   />
                 </MuiNextLink>
               </IconButton>
-              <Navbar navLinks={navLinks} />
+              <Navbar />
               <SideDrawer navLinks={navLinks} />
             </Container>
           </Toolbar>
