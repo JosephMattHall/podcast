@@ -26,42 +26,34 @@ export default function MultiPlayer ({trackList}) {
     const [volumeSliderPosition, setVolumeSliderPosition] = useState(100);
     const [playbackSliderPosition, setPlaybackSliderPosition] = useState(0);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [duration, setDuration] = useState(0);
     
-    
-    const ref = useRef(new Audio(null));
-    const isReady = useRef(false);
+    const ref = useRef(null);
 
     const isVolumeOpen = Boolean(anchorEl);
     const volumeId = isVolumeOpen ? 'volumeController-popover' : undefined;
 
     const handleVolumeOpen = (event) => {
         setAnchorEl(event.currentTarget);
-    }
+    };
 
     const handleVolumeClose = () => {
         setAnchorEl(null);
-    }
+    };
 
     const handleVolumeSliderPositionChange = (event, newValue) => {
         
         setVolume(newValue);
         
-      }
+      };
 
     function setVolume(newValue) {
         ref.current.volume = (newValue / 100.0);
-    }
+    };
     // playback/progress slider stuff
     const handlePlaybackSliderPositionChange = (event, newValue) => {
-        seek(newValue);
+        ref.current.currentTime = newValue;
       };
-
-    function seek(position) {
-        //let newPosition = audio.duration * (position / 100);
-        //audio.currentTime = newPosition;
-        ref.current.currentTime = position;
-
-    }
 
     // player controls management section
     const onPlayClicked = () => {
@@ -89,39 +81,40 @@ export default function MultiPlayer ({trackList}) {
     };
 
     // track list stuff
-    const handleTrackListItemClick = (event, trackIndex) => {
+    const handleTrackListItemClick = (event, index) => {
 
-        setIndex(trackIndex);
+        setIndex(index);
         
       };
     // a basic useEffect hook to periodically update playbackSliderPosition according to currentTrack.currentTime
+    
+    
     useEffect(() => {
         if (ref.current) {
-            return;
-        }
-        ref.current = new Audio(trackList[index].src);
-        setPlaybackSliderPosition(ref.current.currentTime); 
-    }, []);
-
-    
-
-    
-    
-    
-
-    
-
-    
-    
-    
-
-    useEffect(() => {
-        if (isPlaying) {
-            ref.current.play();
+            return
         } else {
-            ref.current.pause();
+        ref.current = new Audio(trackList[index].src);
+        setDuration(ref.current.duration);
         }
+
+      }, []);
+    useEffect(() => {
+    ref.current.pause();
+    ref.current = new Audio(trackList[index].src);
+    
+    setIsPlaying(false);
+    setPlaybackSliderPosition(ref.current.currentTime);
+    
+    },[index]);
+    useEffect(() => {
+    if (isPlaying) {
+        setDuration(ref.current.duration);
+        ref.current.play();
+    } else {
+        ref.current.pause();
+    }
     }, [isPlaying]);
+    
     useEffect(() => {
         const interval = setInterval(() => {
             setPlaybackSliderPosition(ref.current.currentTime);
@@ -180,7 +173,7 @@ export default function MultiPlayer ({trackList}) {
                             aria-label="Trackrogress"
                             defaultValue={0}
                             min={0}
-                            max={ref.current.duration}
+                            max={duration}
                             value={playbackSliderPosition}
                             step={1}
                             onChange={handlePlaybackSliderPositionChange}

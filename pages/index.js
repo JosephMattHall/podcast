@@ -9,9 +9,7 @@ import background from '@/public/spooky_path1.jpeg';
 import { Typography } from '@mui/material';
 import { collection, getDocs } from "firebase/firestore";
 
-const MultiPlayer = dynamic(() => import("@/components/MultiPlayer"), {
-  ssr: false
-});
+import MultiPlayer from "@/components/MultiPlayer";
 
 const tracks = [
   {

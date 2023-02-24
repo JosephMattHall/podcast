@@ -75,9 +75,10 @@ export default function ListPlayer  () {
    useEffect(() => {
     if (ref.current) {
         return
+    }else {
+      ref.current = new Audio(trackList[index].src);
+      setPlaybackSliderPosition(ref.current.currentTime);
     }
-    ref.current = new Audio(trackList[index].src)
-    setPlaybackSliderPosition(ref.current.currentTime)
   }, [])
 
 useEffect(() => {
