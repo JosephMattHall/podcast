@@ -60,12 +60,12 @@ export default function Player({trackList}) {
     }
 
     const onPlay = () => {
-        audio.current.play();
+
         setIsPlaying(true);
     }
 
     const onPause = () => {
-        audio.current.pause();
+
         setIsPlaying(false);
     }
 
@@ -81,7 +81,7 @@ export default function Player({trackList}) {
       }
       if (wasPlaying) {
         setIsPlaying(true);
-        audio.current.play();
+
       }
       
     };
@@ -92,6 +92,14 @@ export default function Player({trackList}) {
             setDuration(audio.current.duration);
         }
       }, []);
+
+    useEffect(() => {
+      if (isPlaying) {
+        audio.current.play();
+      } else {
+        audio.current.pause();
+      }
+    }, [isPlaying, index]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -165,13 +173,13 @@ export default function Player({trackList}) {
                         />
                         {isPlaying ? (
                         <IconButton
-                            onClick={onPause}
+                            onClick={onPlayPause}
                         >
                             <PauseCircleOutlineIcon fontSize="large" />
                         </IconButton>
                         ) : (
                         <IconButton
-                            onClick={onPlay}
+                            onClick={onPlayPause}
                         >
                             <PlayCircleOutlineIcon fontSize="large" />
                         </IconButton>
