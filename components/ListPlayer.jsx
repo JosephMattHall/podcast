@@ -75,13 +75,18 @@ export default function Player({trackList}) {
         setIndex(newIndex);
 
         audio.current = new Audio(trackList[index].src);
-        setDuration(audio.current.duration);
+        audio.current.onloadeddata = () => {
+            setDuration(audio.current.duration);
+        }
+        setIsPlaying(true);
+        audio.current.play();
       };
 
     useEffect(() => {
         audio.current = new Audio(trackList[index].src);
-        setDuration(audio.current.duration);
-        
+        audio.current.onloadeddata = () => {
+            setDuration(audio.current.duration);
+        }
       }, []);
 
     useEffect(() => {
@@ -144,7 +149,7 @@ export default function Player({trackList}) {
                             aria-label="Trackrogress"
                             defaultValue={0}
                             min={0}
-                            max={duration.value}
+                            max={duration}
                             value={sliderPosition}
                             step={1}
                             onChange={handlePlaybackPositionChange}
