@@ -4,12 +4,9 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import IconButton from '@mui/material/IconButton';
 import Popover from '@mui/material/Popover';
@@ -34,22 +31,19 @@ export default function MultiPlayer ({trackList}) {
     const volumeId = isVolumeOpen ? 'volumeController-popover' : undefined;
 
     const handleVolumeOpen = (event) => {
-        setAnchorEl(event.currentTarget);
+        setVolumeAnchorEl(event.currentTarget);
     };
 
     const handleVolumeClose = () => {
-        setAnchorEl(null);
+        setVolumeAnchorEl(null);
     };
 
     const handleVolumeSliderPositionChange = (event, newValue) => {
         
-        setVolume(newValue);
+        ref.current.volume = (newValue / 100.0);
         
       };
 
-    function setVolume(newValue) {
-        ref.current.volume = (newValue / 100.0);
-    };
     // playback/progress slider stuff
     const handlePlaybackSliderPositionChange = (event, newValue) => {
         ref.current.currentTime = newValue;
@@ -145,7 +139,7 @@ export default function MultiPlayer ({trackList}) {
                         <Popover
                             id={volumeId}
                             open={isVolumeOpen}
-                            anchorEl={anchorEl}
+                            anchorEl={volumeAnchorEl}
                             onClose={handleVolumeClose}
                             anchorOrigin={{
                             vertical: 'bottom',
