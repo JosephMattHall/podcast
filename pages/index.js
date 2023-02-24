@@ -9,38 +9,44 @@ import background from '@/public/spooky_path1.jpeg';
 import { Typography } from '@mui/material';
 import { collection, getDocs } from "firebase/firestore";
 
-import MultiPlayer from "@/components/MultiPlayer";
+import ListPlayer from "@/components/ListPlayer";
 
 
 
 
-const tracks = [
+const tracks = [ 
   {
-    title: "track 1",
-    subtitle: "subtitle",
-    art: "/logo.png",
-    src: "/test.mp3"
-  },
-  {
-    title: "track 2",
-    subtitle: "subtitle",
-    art: "/logo.png",
-    src: "/test.mp3"
-  },
-  {
-    title: "track 3",
-    subtitle: "subtitle",
-    art: "/logo.png",
-    src: "/test.mp3"
-  },
-  {
-    title: "track 4",
-    subtitle: "subtitle",
-    art: "/logo.png",
-    src: "/test.mp3"
-  }
-  
+  title: "track 1",
+  subtitle: "subtitle",
+  art: "/logo.png",
+  src: "/test.mp3"
+},
+{
+  title: "track 2",
+  subtitle: "subtitle",
+  art: "/logo.png",
+  src: "/test.mp3"
+},
+{
+  title: "track 3",
+  subtitle: "subtitle",
+  art: "/logo.png",
+  src: "/test.mp3"
+},
+{
+  title: "track 4",
+  subtitle: "subtitle",
+  art: "/logo.png",
+  src: "/test.mp3"
+},
+{
+  title: "track 5",
+  subtitle: "subtitle",
+  art: "/logo.png",
+  src: "/test.mp3"
+},
 ];
+  
 
 export default function Home() {
 
@@ -54,28 +60,21 @@ export default function Home() {
         imgSrc={background}
         imgAlt="a spooky background"
       />
-      <Container>
-        
-        <Typography
-          variant="h4"
-          sx={{
-            py: 3
-          }}
-        >
-          Episodes
-        </Typography>
+      <Container
+        maxWidth="xl">
+
         <Container
         sx={{
-          pb: 10
+          pb: 5
         }}>
         <Container
           sx={{
-            boxShadow: "0 0 0 1rem grey",
-            borderRadius: "10px",
+            boxShadow: "0 0 0 0.5rem grey",
+            borderRadius: "50px",
             pb: 5
           }}
         >
-        <MultiPlayer 
+        <ListPlayer 
           trackList={tracks}
           
           />

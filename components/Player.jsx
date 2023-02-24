@@ -16,13 +16,13 @@ import Popover from '@mui/material/Popover';
 
 export default function Player({track}) {
 
-    const audioRef = useRef(new Audio(track.src));
-    const audio = audioRef.current;
-
     const [isPlaying, setIsPlaying] = useState(false);
     const [sliderPosition, setSliderPosition] = useState(0);
     const [anchorEl, setAnchorEl] = useState(null);
     const [volumePosition, setVolumePosition] = useState(100);
+
+    const audio = useRef();
+
 
     const handleVolumeClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -42,44 +42,44 @@ export default function Player({track}) {
       };
 
     function setVolume(newValue) {
-        audio.volume = (newValue / 100.0);
+        audio.current.volume = (newValue / 100.0);
     }
 
     const handlePlaybackPositionChange = (event, newValue) => {
-        seek(newValue)
+        audio.current.currentTime = newValue;
       };
 
-    function seek(position) {
-        //let newPosition = audio.duration * (position / 100);
-        //audio.currentTime = newPosition;
-        audio.currentTime = position;
-
-    }
     const onPlayPause = () => {
         isPlaying ? onPause() : onPlay();
 
     }
 
     const onPlay = () => {
-        audio.play();
+        audio.current.play();
         setIsPlaying(true);
     }
 
     const onPause = () => {
-        audio.pause();
+        audio.current.pause();
         setIsPlaying(false);
     }
 
     useEffect(() => {
+        audio.current = new Audio(track.src);
+        
+      }, []);
+
+    useEffect(() => {
         const interval = setInterval(() => {
-            setSliderPosition(audio.currentTime);
+            setSliderPosition(audio.current.currentTime);
 
         }, 300);
         return () => clearInterval(interval);
-    }, [sliderPosition, volumePosition, audio]);
+    }, [sliderPosition, audio]);
 
 
-    return(
+    return (
+        <div ref={audio}>
         <Card sx={{ display: "auto" }}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <Stack>
@@ -139,7 +139,7 @@ export default function Player({track}) {
                                 aria-label="Trackrogress"
                                 defaultValue={0}
                                 min={0}
-                                max={audio.duration}
+                                max={150}
                                 value={sliderPosition}
                                 step={1}
                                 onChange={handlePlaybackPositionChange}
@@ -169,7 +169,6 @@ export default function Player({track}) {
                 </Stack>
             </Box>
         </Card>
+        </div>
     )
-
-
 }
