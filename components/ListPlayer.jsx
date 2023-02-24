@@ -70,17 +70,21 @@ export default function Player({trackList}) {
     }
 
     const handleTrackListItemClick = (event, newIndex) => {
-        audio.current.pause();
-        setIsPlaying(false);
-        setIndex(newIndex);
+      let wasPlaying = isPlaying;
+      audio.current.pause();
+      setIsPlaying(false);
+      setIndex(newIndex);
 
-        audio.current = new Audio(trackList[index].src);
-        audio.current.onloadeddata = () => {
-            setDuration(audio.current.duration);
-        }
+      audio.current = new Audio(trackList[index].src);
+      audio.current.onloadeddata = () => {
+          setDuration(audio.current.duration);
+      }
+      if (wasPlaying) {
         setIsPlaying(true);
         audio.current.play();
-      };
+      }
+      
+    };
 
     useEffect(() => {
         audio.current = new Audio(trackList[index].src);
