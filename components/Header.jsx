@@ -19,10 +19,9 @@ export const navLinks = [
 
 const Header = () => {
   return (
-
     <ThemeProvider theme={theme}>
       <HideOnScroll>
-        <AppBar position="afixed" >
+        <AppBar position="relative" >
           <Toolbar>
             <Container
               sx={{ display: `flex`, justifyContent: `space-between` }}
@@ -44,12 +43,12 @@ const Header = () => {
         </AppBar>
         </HideOnScroll>
         <div id="back-to-top-anchor" />
-      <BackToTop>
+       <BackToTop>
         <Fab color="primary.main" size="large" aria-label="back to top">
           <KeyboardArrowUp />
         </Fab>
       </BackToTop>
-      </ThemeProvider>
+    </ThemeProvider>
 
   );
 };
