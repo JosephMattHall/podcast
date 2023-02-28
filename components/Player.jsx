@@ -7,14 +7,14 @@ import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import IconButton from '@mui/material/IconButton';
 import Popover from '@mui/material/Popover';
 
-
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 export default function Player({track}) {
+
+    const darkTheme = createTheme({ palette: { mode: 'dark' } });
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [sliderPosition, setSliderPosition] = useState(0);
@@ -79,12 +79,14 @@ export default function Player({track}) {
 
 
     return (
+        <ThemeProvider theme={darkTheme}>
         <div ref={audio}>
                     <Box
                         align="center"
                         justifyContent="center"
                         sx={{
                             //pt:3
+                            backgroundColor: {primary.main}
                         }}
                         >
                             <Typography component="div" variant="h5">
@@ -162,5 +164,6 @@ export default function Player({track}) {
                         </Stack>
 
         </div>
+        </ThemeProvider>
     )
 }
