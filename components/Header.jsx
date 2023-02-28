@@ -30,10 +30,11 @@ const Header = () => {
               <Button>
                 <MuiNextLink activeClassName="active" href="/">
                 <Avatar
-                alt="MS Podcast"
-                src="/icon_logo.png"
-                sx={{ width: 134, height: 75 }}
-              />
+                  variant="square"
+                  alt="MS Podcast"
+                  src="/icon_logo.png"
+                  sx={{ width: 134, height: 75 }}
+                />
                 </MuiNextLink>
                 </Button>
               <Navbar />
