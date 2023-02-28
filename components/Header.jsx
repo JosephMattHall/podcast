@@ -10,8 +10,7 @@ import MuiNextLink from "@/components/MuiNextLink";
 import Navbar from '@/components/Navbar';
 import SideDrawer from "@/components/SideDrawer";
 import HideOnScroll from "@/components/HideOnScroll";
-import { ThemeProvider } from '@mui/material/styles';
-import theme from "@/themes/theme";
+import { useTheme } from '@mui/material/styles';
 import Avatar from "@mui/material/Avatar";
 export const navLinks = [
   { title: `home`, path: `/` },
@@ -19,7 +18,7 @@ export const navLinks = [
 
 const Header = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <HideOnScroll>
         <AppBar position="relative" >
           <Toolbar>
@@ -48,8 +47,7 @@ const Header = () => {
           <KeyboardArrowUp />
         </Fab>
       </BackToTop>
-    </ThemeProvider>
-
+      </>
   );
 };
 

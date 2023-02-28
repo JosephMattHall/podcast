@@ -55,6 +55,8 @@ export default function ToggleColorMode({ Component, pageProps }) {
     window.localStorage.setItem(JSON.stringify("mode"), JSON.stringify(mode));
   }, [mode]);
   return (
+    <ColorModeContext.Provider value={colorMode}>
+    <ThemeProvider theme={currentTheme}>
     <CacheProvider value={clientSideEmotionCache}>
       <Head>
         <title>Joseph Hall</title>
@@ -65,8 +67,8 @@ export default function ToggleColorMode({ Component, pageProps }) {
         <CssBaseline />
         <Header />
         <AuthUserProvider>
-        <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={currentTheme}>
+        
+      
           <Component {...pageProps} />
           <Box
             sx={{
@@ -85,10 +87,12 @@ export default function ToggleColorMode({ Component, pageProps }) {
               {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
           </Box>
-          </ThemeProvider>
-    </ColorModeContext.Provider>
+          
+    
         </AuthUserProvider>
     </CacheProvider>
+    </ThemeProvider>
+    </ColorModeContext.Provider>
     )
 }
 
