@@ -4,7 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
 import BackToTop from "@/components/BackToTop";
-import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 import Home from "@mui/icons-material/Home";
 import MuiNextLink from "@/components/MuiNextLink";
 import Navbar from '@/components/Navbar';
@@ -12,7 +12,7 @@ import SideDrawer from "@/components/SideDrawer";
 import HideOnScroll from "@/components/HideOnScroll";
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "@/themes/theme";
-
+import Avatar from "@mui/material/Avatar";
 export const navLinks = [
   { title: `home`, path: `/` },
 ];
@@ -27,16 +27,15 @@ const Header = () => {
             <Container
               sx={{ display: `flex`, justifyContent: `space-between` }}
             >
-              <IconButton edge="start" aria-label="home">
+              <Button>
                 <MuiNextLink activeClassName="active" href="/">
-                  <Home
-                    sx={{
-                      color: (theme) => theme.palette.common.white,
-                    }}
-                    fontSize="large"
-                  />
+                <Avatar
+                alt="MS Podcast"
+                src="/icon_logo.png"
+                sx={{ width: 134, height: 75 }}
+              />
                 </MuiNextLink>
-              </IconButton>
+                </Button>
               <Navbar />
               <SideDrawer navLinks={navLinks} />
             </Container>
