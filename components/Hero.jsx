@@ -15,93 +15,49 @@ import background from "@/public/spooky_path1.jpeg";
 
 
 
-const darkTheme = createTheme({ palette: { mode: 'dark' } });
+
 
 
 const Hero = ({ imgSrc, imgAlt } ) => {
   return (
 
-    <ThemeProvider theme={darkTheme}>
+
     <Grid
-        component="section"
         container
-
-
-        
         sx={{
-          position: 'relative',
-          height: "100vh",
-          width: `100vw`,
-          overflow: `hidden`,
           zIndex: -100,
-
-          }}
+        }}
     >
+      <Grid
+          container
+
+          justifyContent="center"
+          sx={{
+          px: 5,
+          py: 5,
+          backgroundColor: "rgba(0,0,0, .7)",
+          }}
+      >
         
-            <Image
-                priority
-                src={background}
-                alt={"a spooky forrest path"}
-                fill="true"
-            />
-      
-        <Grid
-            container
-            alignItems="flex-start"
+        <Paper
+          sx={{
+          borderRadius: "50px",
+          opacity:0.8,
+          }}
+        >
+
+          <Stack
+            alignItems="center"
+            direction="column"
+            divider={<Divider orientation="horizontal" flexItem/>}
+            spacing={2}
             sx={{
-            p: 5,
-            position: `absolute`, 
-            inset: 0,
-            fill: true,
-            backgroundColor: "rgba(0,0,0, .7)",
+              px: 10,
+              pb: 20,
+              pt: 10
             }}
         >
-        
-            <Paper
-              sx={{
-              borderRadius: "50px",
-              opacity:0.8,
-              inset: 4
 
-              }}
-            >
-              <Stack
-
-                direction="column"
-                divider={<Divider orientation="horizontal" flexItem/>}
-                spacing={2}
-            >
-              <Stack
-                alignItems="center"
-                direction="row"
-                divider={<Divider orientation="horizontal" flexItem/>}
-                spacing={2}
-                sx={{
-                  px: 10,
-                  pb: 20,
-                  pt: 10
-                }}
-            >
-              <div
-                  style={{
-                  width: "550px",
-                  borderRadius: '100%',
-                  overflow: 'hidden',
-                  }}
-              >
-                  <Image
-                  src={logo}
-                  alt="Murder Savy Logo"
-                  align="center"
-                  />
-              </div>
-              <Stack
-              
-                align="center"
-                direction="column"
-                alignItems="center"
-                justifyContent="center"        
-            >
                 <Typography
                     variant="h2"
                     align="center"
@@ -113,21 +69,19 @@ const Hero = ({ imgSrc, imgAlt } ) => {
                 >
                     Murder Savy
                 </Typography>
-
-                    <Typography
-                        md={7}
-                        aragraph="true"
-                        variant="h5"
-                        align="center"
-                        sx={{
-                        paragraph: true,
-                        color: "common.white",
-                        opacity: 0.9,
-                        m: 5
-                        }}
-                    >
+                <Typography
+                    md={7}
+                    aragraph="true"
+                    variant="p"
+                    align="center"
+                    sx={{
+                    paragraph: true,
+                    color: "common.white",
+                    opacity: 0.9,
+                    m: 5
+                    }}
+                >
                  Welcome aboard the Murder Savvy Podcast with Tali Hall! We will sail through stories of survival, strange events, questionable occurrences, myths, legends, and without a doubt, murder, savvy? 
-                 
               </Typography>
               <Stack
               justifyContent="center"
@@ -136,7 +90,6 @@ const Hero = ({ imgSrc, imgAlt } ) => {
                 divider={<Divider orientation="vertical" flexItem />}
                 spacing={2}
               >
-
               <Button
                 variant="outlined"
                 sx={{
@@ -144,21 +97,19 @@ const Hero = ({ imgSrc, imgAlt } ) => {
                   borderColor: "common.white"
                 }}
               >
-              <Typography
-                  variant="h4"
-                  sx={{
-                    color: "common.white",
-                  }}
-                >
-
+                <Typography
+                    variant="h4"
+                    sx={{
+                      color: "common.white",
+                    }}
+                  >
                    Find us
                 </Typography>
                 <PodcastsIcon
                   size="large"
-                  sx={{ ml:2 }}
+                  sx={{ ml:1 }}
                 />
               </Button>
-
               <Button
                 variant="outlined"
                 sx={{
@@ -177,21 +128,17 @@ const Hero = ({ imgSrc, imgAlt } ) => {
                 
                 <LaunchOutlinedIcon 
                   size="large"
-                  sx={{ ml:2 }}
+                  sx={{ ml:1 }}
                 />
               </Button>
               </Stack>
+              </Stack>
 
-              
 
-          
-              </Stack>
-              </Stack>
-              </Stack>
           </Paper>
           </Grid>
         </Grid>
-        </ThemeProvider>
+
 
       
 
