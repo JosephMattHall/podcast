@@ -61,7 +61,7 @@ export default function Home() {
         imgSrc={background}
         imgAlt="a spooky background" 
         />
-        <Box sx={{ bgcolor: '#4d5054', width: '100vw' }} >
+        <Box sx={{ bgcolor: '#4d5054'}} >
       <ListPlayer  trackList={tracks} />
       </Box>
     </>

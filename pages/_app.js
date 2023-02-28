@@ -1,5 +1,6 @@
 
-import * as React from 'react';
+
+import React, { useEffect, useState, useMemo, createContext} from "react";
 import CssBaseline from '@mui/material/CssBaseline';
 import Head from 'next/head';
 import { ThemeProvider, useTheme, createTheme } from '@mui/material/styles';
@@ -22,12 +23,12 @@ import '@fontsource/roboto/700.css';
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
-const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 export default function ToggleColorMode({ Component, pageProps }) {
   const theme = useTheme();
-  const [mode, setMode] = React.useState('light');
-  const colorMode = React.useMemo(
+  const [mode, setMode] = useState('light');
+  const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
@@ -36,7 +37,7 @@ export default function ToggleColorMode({ Component, pageProps }) {
     [],
   );
 
-  const currentTheme = React.useMemo(
+  const currentTheme = useMemo(
     () =>
       createTheme({
         palette: {
@@ -46,7 +47,13 @@ export default function ToggleColorMode({ Component, pageProps }) {
     [mode],
   );
 
+  useEffect(() => {
+    setMode(JSON.parse(window.localStorage.getItem("mode")));
+  }, []);
 
+  useEffect(() => {
+    window.localStorage.setItem(JSON.stringify("mode"), JSON.stringify(mode));
+  }, [mode]);
   return (
     <CacheProvider value={clientSideEmotionCache}>
       <Head>

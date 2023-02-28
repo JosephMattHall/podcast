@@ -184,7 +184,7 @@ export default function Player({trackList}) {
                     )}
                 </Box>
             </Stack>
-            <List sx={{ width: '100vw', bgcolor: '#616469' }}>
+            <List sx={{bgcolor: '#616469' }}>
                 <ListItemButton
                     selected={index === 0}
                     onClick={(event) => handleTrackListItemClick(event, 0)}
