@@ -4,13 +4,14 @@ import createEmotionServer from '@emotion/server/create-instance';
 import createEmotionCache from "@/themes/createEmotionCache";
 import { useTheme } from '@mui/material/styles';
 
+
 export default class MyDocument extends Document {
   render(){
     return (
       <Html lang="en">
         <Head>
           {/* PWA primary color */}
-          <meta name="theme-color" content={useTheme} />
+
         </Head>
         <body>
           <Main />
