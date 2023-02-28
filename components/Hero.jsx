@@ -21,11 +21,11 @@ const darkTheme = createTheme({ palette: { mode: 'dark' } });
 const Hero = ({ imgSrc, imgAlt } ) => {
   return (
 
-    
+    <ThemeProvider theme={darkTheme}>
     <Grid
         component="section"
         container
-        align= "center"
+
 
         
         sx={{
@@ -34,7 +34,7 @@ const Hero = ({ imgSrc, imgAlt } ) => {
           width: `100vw`,
           overflow: `hidden`,
           zIndex: -100,
-          mb: 5,
+
           }}
     >
         
@@ -56,7 +56,7 @@ const Hero = ({ imgSrc, imgAlt } ) => {
             backgroundColor: "rgba(0,0,0, .7)",
             }}
         >
-        <ThemeProvider theme={darkTheme}>
+        
             <Paper
               sx={{
               borderRadius: "50px",
@@ -66,7 +66,7 @@ const Hero = ({ imgSrc, imgAlt } ) => {
               }}
             >
               <Stack
-                alignItems="center"
+
                 direction="column"
                 divider={<Divider orientation="horizontal" flexItem/>}
                 spacing={2}
@@ -189,10 +189,9 @@ const Hero = ({ imgSrc, imgAlt } ) => {
               </Stack>
               </Stack>
           </Paper>
-          </ThemeProvider>
           </Grid>
         </Grid>
-
+        </ThemeProvider>
 
       
 

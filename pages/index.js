@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Hero from '@/components/Hero';
@@ -16,10 +17,10 @@ import ListPlayer from "@/components/ListPlayer";
 
 const tracks = [ 
   {
-  title: "track 1",
-  subtitle: "subtitle",
-  art: "/logo.png",
-  src: "/test.mp3"
+    title: "track 1",
+    subtitle: "subtitle",
+    art: "/logo.png",
+    src: "/test.mp3"
 },
 {
   title: "track 2",
@@ -58,29 +59,11 @@ export default function Home() {
     <>
       <Hero
         imgSrc={background}
-        imgAlt="a spooky background"
-      />
-      <Container
-        maxWidth="xl">
-
-        <Container
-        sx={{
-          pb: 5
-        }}>
-        <Container
-          sx={{
-            boxShadow: "0 0 0 0.5rem grey",
-            borderRadius: "50px",
-            pb: 5
-          }}
-        >
-        <ListPlayer 
-          trackList={tracks}
-          
-          />
-          </Container>
-          </Container>
-      </Container>
-      </>
+        imgAlt="a spooky background" 
+        />
+        <Box sx={{ bgcolor: '#4d5054', width: '100vw' }} >
+      <ListPlayer  trackList={tracks} />
+      </Box>
+    </>
   )
 }

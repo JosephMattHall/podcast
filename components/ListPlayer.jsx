@@ -7,15 +7,12 @@ import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import IconButton from '@mui/material/IconButton';
 import Popover from '@mui/material/Popover';
-import Container from "@mui/material/Container"
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-
+import Container from "@mui/material/Container"
 export default function Player({trackList}) {
 
     const [index, setIndex] = useState(0);
@@ -111,83 +108,83 @@ export default function Player({trackList}) {
 
 
     return (
+
+
         <div ref={audio}>
-        <Container>
-            <Stack>
-                <CardContent>
-                    <Box
-                        sx={{justifyContent: "center"}}
+            <Container
+                align="center"
+                sx={{
+                    pt: 2
+                }}
+            >
+                <Typography variant="h5">
+                    <p>title placeholder</p>
+                </Typography>
+            </Container>
+            <Stack direction="row" alignItems="center" spacing={1}>
+                <Box
+                sx={{
+                    pl:3
+                }}>
+                    <IconButton
+                        aria-describedby={id}
+                        veriant="contained"
+                        onClick={handleVolumeOpen}    
                     >
-                        <Typography component="div" variant="h5">
-                            <p>title placeholder</p>
-                        </Typography>
-                    </Box>
-                    <Stack direction="row" spacing={2}>
-                        <IconButton
-                            aria-describedby={id}
-                            veriant="contained"
-                            onClick={handleVolumeOpen}    
-                        >
-                            <VolumeUpIcon />
-                        </IconButton>
-                        <Popover
-                            id={id}
-                            open={open}
-                            anchorEl={anchorEl}
-                            onClose={handleVolumeClose}
-                            anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                            }}
-                        >
-                            <Box
-                                sx={{
-                                    minWidth: 100,
-                                    alignContent: "center",
-                                    paddingLeft: 2,
-                                    paddingRight: 2,
-                                }}
-                            >
-                                <Slider
-                                    min={0}
-                                    max={100}
-                                    value={volumePosition}
-                                    onChange={handleVolumePositionChange}
-                                    color="error"
-                                />
-                            </Box>
-                        </Popover>
+                        <VolumeUpIcon />
+                    </IconButton>
+                    <Popover
+                        id={id}
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={handleVolumeClose}
+                        anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                        }}
+                    >
                         <Slider
-                            aria-label="Trackrogress"
-                            defaultValue={0}
                             min={0}
-                            max={duration}
-                            value={sliderPosition}
-                            step={1}
-                            onChange={handlePlaybackPositionChange}
+                            max={100}
+                            value={volumePosition}
+                            onChange={handleVolumePositionChange}
                             color="error"
-                            size="small"
-                            sx={{
-                            pt: 5
-                            }}
                         />
-                        {isPlaying ? (
-                        <IconButton
-                            onClick={onPlayPause}
-                        >
-                            <PauseCircleOutlineIcon fontSize="large" />
-                        </IconButton>
-                        ) : (
-                        <IconButton
-                            onClick={onPlayPause}
-                        >
-                            <PlayCircleOutlineIcon fontSize="large" />
-                        </IconButton>
-                        )}
-                    </Stack>
-                </CardContent>
+                    </Popover>
+                </Box>
+                <Box sx={{ width: '100vw' }}>
+                    <Slider
+                        aria-label="Trackrogress"
+                        defaultValue={0}
+                        min={0}
+                        max={duration}
+                        value={sliderPosition}
+                        step={1}
+                        onChange={handlePlaybackPositionChange}
+                        color="error"
+                        size="large"
+                    />
+                    </Box>
+                    <Box
+                    sx={{
+                        pr:3
+                    }}>
+                    {isPlaying ? (
+                    <IconButton
+                        onClick={onPlayPause}
+                    >
+                        <PauseCircleOutlineIcon fontSize="large" />
+                    </IconButton>
+                    ) : (
+                    <IconButton
+                        onClick={onPlayPause}
+                    >
+                        <PlayCircleOutlineIcon fontSize="large" />
+                    </IconButton>
+                    )}
+                </Box>
             </Stack>
-            <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+            <List sx={{ width: '100vw', bgcolor: '#616469' }}>
                 <ListItemButton
                     selected={index === 0}
                     onClick={(event) => handleTrackListItemClick(event, 0)}
@@ -207,7 +204,7 @@ export default function Player({trackList}) {
                     <ListItemText primary={trackList[2].title} />
                 </ListItemButton>
             </List>
-        </Container>
-        </div>
+            </div>
+
     )
 }

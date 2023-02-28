@@ -75,21 +75,16 @@ export default function Player({track}) {
 
         }, 300);
         return () => clearInterval(interval);
-    }, [sliderPosition, audio]);
+    }, [sliderPosition]);
 
 
     return (
         <div ref={audio}>
-        <Card sx={{ display: "auto" }}>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Stack>
-                    <CardContent>
-
                     <Box
+                        align="center"
+                        justifyContent="center"
                         sx={{
-                            display: "flex",
-                            justifyContent: "center",
-                            m: 0
+                            //pt:3
                         }}
                         >
                             <Typography component="div" variant="h5">
@@ -165,10 +160,7 @@ export default function Player({track}) {
                             </IconButton>
                             )}
                         </Stack>
-                    </CardContent>
-                </Stack>
-            </Box>
-        </Card>
+
         </div>
     )
 }

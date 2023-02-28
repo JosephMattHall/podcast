@@ -1,8 +1,6 @@
 import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
-import { styled } from "@mui/system";
-
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
 import BackToTop from "@/components/BackToTop";
@@ -15,24 +13,18 @@ import HideOnScroll from "@/components/HideOnScroll";
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "@/themes/theme";
 
-
-const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
-
 export const navLinks = [
   { title: `home`, path: `/` },
-
-  
 ];
 
 const Header = () => {
   return (
-    <>
+
     <ThemeProvider theme={theme}>
       <HideOnScroll>
-        <AppBar position="absolute" >
+        <AppBar position="afixed" >
           <Toolbar>
             <Container
-              maxWidth="lg"
               sx={{ display: `flex`, justifyContent: `space-between` }}
             >
               <IconButton edge="start" aria-label="home">
@@ -51,14 +43,14 @@ const Header = () => {
           </Toolbar>
         </AppBar>
         </HideOnScroll>
-        <Offset id="back-to-top-anchor" />
+        <div id="back-to-top-anchor" />
       <BackToTop>
         <Fab color="primary.main" size="large" aria-label="back to top">
           <KeyboardArrowUp />
         </Fab>
       </BackToTop>
       </ThemeProvider>
-    </>
+
   );
 };
 
