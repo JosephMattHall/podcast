@@ -1,4 +1,4 @@
-import React from "react";
+import React, { cache, useSyncExternalStore } from "react";
 import { useState, useEffect, useRef } from "react";
 import Stack from "@mui/material/Stack";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
@@ -11,11 +11,17 @@ import IconButton from '@mui/material/IconButton';
 import Popover from '@mui/material/Popover';
 
 import { useTheme } from "@mui/material/styles";
+import Link from "next/link";
+import { flushSync } from "react-dom";
+import _default from "next/dist/client/router";
+import next from "next";
+import { isLocalURL } from "next/dist/shared/lib/router/router";
+import { NextURL } from "next/dist/server/web/next-url";
 
 export default function Player({track}) {
 
     const theme = useTheme();
-
+    const [error, setError] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [sliderPosition, setSliderPosition] = useState(0);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -57,6 +63,7 @@ export default function Player({track}) {
     const onPlay = () => {
         audio.current.play();
         setIsPlaying(true);
+        window.addEventListener('popstate', PopStateEvent, false);
     }
 
     const onPause = () => {
@@ -65,8 +72,13 @@ export default function Player({track}) {
     }
 
     useEffect(() => {
-        audio.current = new Audio(track.src);
-        
+
+        audio.current = new Audio(track.src)
+        return () => {
+
+            window.removeEventListener('popstate', () => cache(useSyncExternalStore), false);
+            
+        }
       }, []);
 
     useEffect(() => {
@@ -79,7 +91,7 @@ export default function Player({track}) {
 
 
     return (
-        
+
         <div ref={audio}>
                     <Box
                         align="center"
@@ -164,5 +176,7 @@ export default function Player({track}) {
                         </Stack>
 
         </div>
-    );
-}
+
+        
+    )
+        }

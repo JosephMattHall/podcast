@@ -9,9 +9,11 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Button from "@mui/material/Button";
 import { useTheme } from '@mui/material/styles';
-import Link from 'next/link';
 
+import Link from "next/link";
 import logo from "@/public/logo.png";
+import { URL } from "next/dist/compiled/@edge-runtime/primitives/url";
+import { NextURL } from "next/dist/server/web/next-url";
 
 
 
@@ -63,7 +65,9 @@ export default function Hero () {
             color="primary"
             sx={{ width: '200px', fontSize: '16px' }}
           >
+            <Link activeClassName="active" href="/test" as="/test">
             HIRE US
+            </Link>
           </Button>
           </Container>
           </Stack>
