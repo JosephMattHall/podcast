@@ -17,10 +17,11 @@ export const navLinks = [
 ];
 
 const Header = () => {
+  const theme = useTheme();
   return (
     <>
       <HideOnScroll>
-        <AppBar position="relative" >
+        <AppBar position="relative"  >
           <Toolbar>
             <Container
               sx={{ display: `flex`, justifyContent: `space-between` }}
@@ -43,7 +44,7 @@ const Header = () => {
         </HideOnScroll>
         <div id="back-to-top-anchor" />
        <BackToTop>
-        <Fab color="primary.main" size="large" aria-label="back to top">
+        <Fab size="large" aria-label="back to top">
           <KeyboardArrowUp />
         </Fab>
       </BackToTop>

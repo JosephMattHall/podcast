@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState, useMemo, createContext} from "react";
 import CssBaseline from '@mui/material/CssBaseline';
 import Head from 'next/head';
@@ -14,6 +12,8 @@ import Box from '@mui/material/Box';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
+
+
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -27,11 +27,11 @@ const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 export default function ToggleColorMode({ Component, pageProps }) {
   const theme = useTheme();
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState('dark');
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        setMode((prevMode) => (prevMode === 'dark' ? 'light' : 'dark'));
       },
     }),
     [],
@@ -52,11 +52,10 @@ export default function ToggleColorMode({ Component, pageProps }) {
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem(JSON.stringify("mode"), JSON.stringify(mode));
+    window.localStorage.setItem("mode", JSON.stringify(mode));
   }, [mode]);
+
   return (
-    <ColorModeContext.Provider value={colorMode}>
-    <ThemeProvider theme={currentTheme}>
     <CacheProvider value={clientSideEmotionCache}>
       <Head>
         <title>Joseph Hall</title>
@@ -67,8 +66,8 @@ export default function ToggleColorMode({ Component, pageProps }) {
         <CssBaseline />
         <Header />
         <AuthUserProvider>
-        
-      
+        <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={currentTheme}>
           <Component {...pageProps} />
           <Box
             sx={{
@@ -87,13 +86,9 @@ export default function ToggleColorMode({ Component, pageProps }) {
               {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
           </Box>
-          
-    
+          </ThemeProvider>
+    </ColorModeContext.Provider>
         </AuthUserProvider>
     </CacheProvider>
-    </ThemeProvider>
-    </ColorModeContext.Provider>
     )
 }
-
-

@@ -13,8 +13,10 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Container from "@mui/material/Container"
-export default function Player({trackList}) {
+import { useTheme } from '@mui/material/styles';
 
+export default function Player({trackList}) {
+    const theme = useTheme();
     const [index, setIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [sliderPosition, setSliderPosition] = useState(0);
@@ -184,7 +186,7 @@ export default function Player({trackList}) {
                     )}
                 </Box>
             </Stack>
-            <List sx={{bgcolor: '#616469' }}>
+            <List >
                 <ListItemButton
                     selected={index === 0}
                     onClick={(event) => handleTrackListItemClick(event, 0)}

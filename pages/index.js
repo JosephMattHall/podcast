@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 import background from '@/public/spooky_path1.jpeg';
 import { Typography } from '@mui/material';
 import { collection, getDocs } from "firebase/firestore";
-
+import { useTheme } from '@mui/material/styles';
 import ListPlayer from "@/components/ListPlayer";
 
 
@@ -50,8 +50,7 @@ const tracks = [
   
 
 export default function Home() {
-
-
+  const theme = useTheme();
 
 
 
@@ -61,7 +60,7 @@ export default function Home() {
         imgSrc={background}
         imgAlt="a spooky background" 
         />
-        <Box sx={{ bgcolor: '#4d5054'}} >
+        <Box >
       <ListPlayer  trackList={tracks} />
       </Box>
     </>

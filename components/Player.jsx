@@ -10,11 +10,11 @@ import Slider from "@mui/material/Slider";
 import IconButton from '@mui/material/IconButton';
 import Popover from '@mui/material/Popover';
 
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 
 export default function Player({track}) {
 
-    const darkTheme = createTheme({ palette: { mode: 'dark' } });
+    const theme = useTheme();
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [sliderPosition, setSliderPosition] = useState(0);
@@ -79,14 +79,14 @@ export default function Player({track}) {
 
 
     return (
-        <ThemeProvider theme={darkTheme}>
+        
         <div ref={audio}>
                     <Box
                         align="center"
                         justifyContent="center"
                         sx={{
                             //pt:3
-                            backgroundColor: {primary.main}
+
                         }}
                         >
                             <Typography component="div" variant="h5">
@@ -164,6 +164,5 @@ export default function Player({track}) {
                         </Stack>
 
         </div>
-        </ThemeProvider>
-    )
+    );
 }
