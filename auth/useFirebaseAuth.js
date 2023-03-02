@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { auth } from "../firebase-config";
 
 const formatAuthUser = (user) => ({
   uid: user.uid,
-  email: user.email
+  email: user.email,
 });
 
 export default function useFirebaseAuth() {
@@ -12,14 +12,14 @@ export default function useFirebaseAuth() {
 
   const authStateChanged = async (authState) => {
     if (!authState) {
-      setAuthUser(null)
-      setLoading(false)
+      setAuthUser(null);
+      setLoading(false);
       return;
     }
 
-    setLoading(true)
+    setLoading(true);
     var formattedUser = formatAuthUser(authState);
-    setAuthUser(formattedUser);    
+    setAuthUser(formattedUser);
     setLoading(false);
   };
 
@@ -34,10 +34,9 @@ export default function useFirebaseAuth() {
   const createUserWithEmailAndPassword = (email, password) =>
     auth.createUserWithEmailAndPassword(email, password);
 
-  const signOut = () =>
-    auth.signOut().then(clear);
+  const signOut = () => auth.signOut().then(clear);
 
-// listen for Firebase state change
+  // listen for Firebase state change
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(authStateChanged);
     return () => unsubscribe();
@@ -48,6 +47,6 @@ export default function useFirebaseAuth() {
     loading,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
-    signOut
+    signOut,
   };
 }

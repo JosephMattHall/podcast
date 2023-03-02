@@ -39,9 +39,7 @@ const SideDrawer = ({ navLinks }) => {
             textTransform: `uppercase`,
           }}
         >
-          <MuiNextLink href={path}>
-            {title}
-          </MuiNextLink>
+          <MuiNextLink href={path}>{title}</MuiNextLink>
         </Typography>
       ))}
     </Box>
