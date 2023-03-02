@@ -14,10 +14,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 
 
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+
 
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -26,7 +23,7 @@ const clientSideEmotionCache = createEmotionCache();
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 export default function ToggleColorMode({ Component, pageProps }) {
-  const theme = useTheme();
+
   const [mode, setMode] = useState('light');
   const colorMode = useMemo(
     () => ({
@@ -42,6 +39,33 @@ export default function ToggleColorMode({ Component, pageProps }) {
       createTheme({
         palette: {
           mode,
+          ...(mode === 'light'
+          
+          ? {
+            primary: {
+              main: '#5893df',
+            },
+            secondary: {
+              main: '#2ec5d3',
+            },
+            background: {
+              default: '#192231',
+              paper: '#24344d',
+            },
+            }
+          : {
+              // palette values for dark mode
+              primary: {
+                main: '#90caf9',
+              },
+              secondary: {
+                main: '#ce93d8',
+              },
+              background: {
+                default: '#121212',
+                paper: '#121212',
+              },
+            }),
         },
       }),
     [mode],
@@ -56,7 +80,10 @@ export default function ToggleColorMode({ Component, pageProps }) {
   }, [mode]);
 
   return (
-    <CacheProvider value={clientSideEmotionCache}>
+    
+      <ColorModeContext.Provider value={colorMode}>
+          <ThemeProvider theme={currentTheme}>
+          <CacheProvider value={clientSideEmotionCache}>
       <Head>
         <title>Joseph Hall</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
@@ -65,8 +92,7 @@ export default function ToggleColorMode({ Component, pageProps }) {
       <CssBaseline />
       <Header />
       <AuthUserProvider>
-        <ColorModeContext.Provider value={colorMode}>
-          <ThemeProvider theme={currentTheme}>
+        
             <Component {...pageProps} />
               <Box
                 sx={{
@@ -85,9 +111,11 @@ export default function ToggleColorMode({ Component, pageProps }) {
                   {currentTheme.palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
                 </IconButton>
               </Box>
-            </ThemeProvider>
-          </ColorModeContext.Provider>
+            
         </AuthUserProvider>
-    </CacheProvider>
+        </CacheProvider>
+        </ThemeProvider>
+          </ColorModeContext.Provider>
+    
     )
 }

@@ -60,7 +60,7 @@ export default function Hero () {
           >
           <Button
             variant="contained"
-            color="primary"
+
             sx={{ width: '200px', fontSize: '16px' }}
           >
             <span onClick={() => router.push('/test')}>
