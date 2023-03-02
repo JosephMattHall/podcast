@@ -5,8 +5,9 @@ import MuiNextLink from "@/components/MuiNextLink";
 import { useRouter } from 'next/router';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/firebase-config';
+import { useTheme } from '@mui/material/styles';
 const Navbar = () => {
-
+  const theme = useTheme();
   const router = useRouter();
 
   const handleClick = (event) => {
@@ -25,9 +26,9 @@ const Navbar = () => {
       <Stack direction="row" spacing={4}>
         <Button
           variant="contained"
-          color="secondary" 
+
         >
-          <MuiNextLink activeClassName="active" href="/">
+          <MuiNextLink color="inherit" activeClassName="active" href="/">
             Logout
           </MuiNextLink>
         </Button>

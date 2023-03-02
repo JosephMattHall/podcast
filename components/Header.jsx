@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <>
       <HideOnScroll>
-        <AppBar position="relative"  >
+        <AppBar position="relative" color="inherit"  >
           <Toolbar>
             <Container
               sx={{ display: `flex`, justifyContent: `space-between` }}

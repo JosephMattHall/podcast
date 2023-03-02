@@ -15,6 +15,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Container from "@mui/material/Container"
 import { useTheme } from '@mui/material/styles';
 import { useRouter } from 'next/router'
+import { withTheme } from "@emotion/react";
 export default function Player({trackList}) {
 
     const router = useRouter();
@@ -134,7 +135,13 @@ export default function Player({trackList}) {
     return (
 
 
-        <div ref={audio}>
+        <div ref={audio} >
+            <Container
+           sx={{
+            p: 5,
+            boxShadow: 5
+           }}
+        >
             <Container
                 align="center"
                 sx={{
@@ -208,7 +215,11 @@ export default function Player({trackList}) {
                     )}
                 </Box>
             </Stack>
-            <List >
+            
+            <List
+            sx={{
+                backgroundColor: theme.palette.secondary.main
+            }}>
                 <ListItemButton
                     selected={index === 0}
                     onClick={(event) => handleTrackListItemClick(event, 0)}
@@ -228,6 +239,8 @@ export default function Player({trackList}) {
                     <ListItemText primary={trackList[2].title} />
                 </ListItemButton>
             </List>
+
+            </Container>
             </div>
 
     )

@@ -52,19 +52,30 @@ export default function ToggleColorMode({ Component, pageProps }) {
               default: '#192231',
               paper: '#24344d',
             },
+            text: {
+              primary: '#f7f4f4',
+              secondary: 'rgba(253,250,250,0.7)',
+            }
+
             }
           : {
               // palette values for dark mode
               primary: {
-                main: '#90caf9',
+                main: '#414243',
+                light: '#a1a4a8',
+                dark: '#464c50',
               },
               secondary: {
-                main: '#ce93d8',
+                main: '#676771',
               },
               background: {
-                default: '#121212',
-                paper: '#121212',
+                default: '#494A4C',
+                paper: '#222222',
               },
+              text: {
+                primary: '#f7f4f4',
+                secondary: 'rgba(253,250,250,0.7)',
+              }
             }),
         },
       }),
@@ -103,7 +114,7 @@ export default function ToggleColorMode({ Component, pageProps }) {
                   bgcolor: 'background.default',
                   color: 'text.primary',
                   borderRadius: 1,
-                  p: 3,
+                  m: 2,
                 }}
               >
                 {currentTheme.palette.mode} mode
@@ -111,7 +122,7 @@ export default function ToggleColorMode({ Component, pageProps }) {
                   {currentTheme.palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
                 </IconButton>
               </Box>
-            
+
         </AuthUserProvider>
         </CacheProvider>
         </ThemeProvider>
