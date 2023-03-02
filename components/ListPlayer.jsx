@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useId } from "react";
 import Stack from "@mui/material/Stack";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
@@ -14,8 +14,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Container from "@mui/material/Container"
 import { useTheme } from '@mui/material/styles';
-
+import { useRouter } from 'next/router'
 export default function Player({trackList}) {
+
+    const router = useRouter();
     const theme = useTheme();
     const [index, setIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -91,6 +93,21 @@ export default function Player({trackList}) {
             setDuration(audio.current.duration);
         }
       }, []);
+
+      useEffect(() => {
+        const handleRouteChange = (url, { shallow }) => {
+          setIsPlaying(false);
+          audio.current.pause();
+        }
+    
+        router.events.on('routeChangeStart', handleRouteChange)
+    
+        // If the component is unmounted, unsubscribe
+        // from the event with the `off` method:
+        return () => {
+          router.events.off('routeChangeStart', handleRouteChange)
+        }
+      }, [])
 
     useEffect(() => {
       if (isPlaying) {
