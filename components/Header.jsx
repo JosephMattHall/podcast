@@ -5,7 +5,6 @@ import Fab from "@mui/material/Fab";
 import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
 import BackToTop from "@/components/BackToTop";
 import Button from "@mui/material/Button";
-import Home from "@mui/icons-material/Home";
 import MuiNextLink from "@/components/MuiNextLink";
 import Navbar from '@/components/Navbar';
 import SideDrawer from "@/components/SideDrawer";
@@ -35,7 +34,7 @@ const Header = () => {
                   sx={{ width: 134, height: 75 }}
                 />
                 </MuiNextLink>
-                </Button>
+              </Button>
               <Navbar />
               <SideDrawer navLinks={navLinks} />
             </Container>

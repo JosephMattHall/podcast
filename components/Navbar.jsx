@@ -1,6 +1,7 @@
 import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
-import MuiNextLink from "./MuiNextLink";
+import Button from "@mui/material/Button";
+import MuiNextLink from "@/components/MuiNextLink";
 import { useRouter } from 'next/router';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/firebase-config';
@@ -22,10 +23,14 @@ const Navbar = () => {
       }}
     >
       <Stack direction="row" spacing={4}>
-        
-        <button onClick={handleClick}>
-          Logout
-        </button>
+        <Button
+          variant="contained"
+          color="secondary" 
+        >
+          <MuiNextLink activeClassName="active" href="/">
+            Logout
+          </MuiNextLink>
+        </Button>
       </Stack>
     </Toolbar>
   );

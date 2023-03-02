@@ -62,6 +62,7 @@ const Link = React.forwardRef(function Link(props, ref) {
 
   return (
     <MuiLink
+     underline={"none"}
       component={NextLinkComposed}
       linkAs={linkAs}
       className={className}
