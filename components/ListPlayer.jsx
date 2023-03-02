@@ -98,6 +98,11 @@ export default function Player({trackList}) {
         const handleRouteChange = (url, { shallow }) => {
           setIsPlaying(false);
           audio.current.pause();
+          audio.current = new Audio(trackList[index].src);
+          audio.current.onloadeddata = () => {
+            setDuration(audio.current.duration);
+        }
+          
         }
     
         router.events.on('routeChangeStart', handleRouteChange)
