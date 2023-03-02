@@ -48,10 +48,10 @@ export default function Hero () {
           >
             <Stack direction="column">
           <Typography variant="h3" >
-            Lets scale your business
+            Murder Savy
           </Typography>
           <Typography variant="h6" >
-            Hire professionals who [..truccated..] we are your best client.
+          Welcome aboard the Murder Savvy Podcast with Tali Hall! We will sail through stories of survival, strange events, questionable occurrences, myths, legends, and without a doubt, murder, savvy?
           </Typography>
           <Container
           sx={{
@@ -64,7 +64,12 @@ export default function Hero () {
             sx={{ width: '200px', fontSize: '16px' }}
           >
             <span onClick={() => router.push('/test')}>
-            HIRE US
+            <Typography
+            variant="p"
+            paddingRight={1}>
+            Listen Now
+          </Typography>
+          <PodcastsIcon />
             </span>
           </Button>
           </Container>
