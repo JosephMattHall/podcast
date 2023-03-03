@@ -5,8 +5,12 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/icons-material/Menu";
 import MuiNextLink from "./MuiNextLink";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import { useTheme } from "@mui/material/styles";
 
 const SideDrawer = ({ navLinks }) => {
+  const router = useRouter();
+  const theme = useTheme();
   const [state, setState] = useState({
     right: false,
   });
@@ -31,7 +35,8 @@ const SideDrawer = ({ navLinks }) => {
     >
       {navLinks.map(({ title, path }, i) => (
         <Typography
-          variannt="button"
+          
+          variannt="p"
           key={`${title}${i}`}
           sx={{
             ml: 5,
@@ -39,7 +44,7 @@ const SideDrawer = ({ navLinks }) => {
             textTransform: `uppercase`,
           }}
         >
-          <MuiNextLink href={path}>{title}</MuiNextLink>
+          <MuiNextLink color={theme.palette.text.primary} href={path}>{title}</MuiNextLink>
         </Typography>
       ))}
     </Box>
@@ -52,7 +57,7 @@ const SideDrawer = ({ navLinks }) => {
         aria-label="menu"
         onClick={toggleDrawer("right", true)}
         sx={{
-          color: `common.white`,
+
           display: { xs: `inline`, md: `none` },
         }}
       >
@@ -64,7 +69,6 @@ const SideDrawer = ({ navLinks }) => {
         onClose={toggleDrawer("right", false)}
         sx={{
           ".MuiDrawer-paper": {
-            bgcolor: "primary.main",
           },
         }}
       >
