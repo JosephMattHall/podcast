@@ -104,8 +104,6 @@ export default function ToggleColorMode({ Component, pageProps }) {
                 width: "100%",
                 alignItems: "center",
                 justifyContent: "center",
-                bgcolor: "background.default",
-                color: "text.primary",
                 borderRadius: 1,
                 m: 2,
               }}
@@ -114,12 +112,12 @@ export default function ToggleColorMode({ Component, pageProps }) {
               <IconButton
                 sx={{ ml: 1 }}
                 onClick={colorMode.toggleColorMode}
-                color="inherit"
+                color={currentTheme.palette.text.primary.valueOf()}
               >
                 {currentTheme.palette.mode === "light" ? (
-                  <Brightness7Icon />
+                  <Brightness7Icon foregroundColor={currentTheme.palette.primary.dark} />
                 ) : (
-                  <Brightness4Icon />
+                  <Brightness4Icon color={currentTheme.palette.primary.dark.toString()} />
                 )}
               </IconButton>
             </Box>

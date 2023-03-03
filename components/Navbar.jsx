@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase-config";
 import { useTheme } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+
 const Navbar = () => {
   const theme = useTheme();
   const router = useRouter();
@@ -24,8 +26,10 @@ const Navbar = () => {
     >
       <Stack direction="row" spacing={4}>
         <Button variant="contained">
-          <MuiNextLink color="inherit" activeClassName="active" href="/">
+          <MuiNextLink activeClassName="active" href="/">
+          <Typography color={theme.palette.text.primary} variant="subtitle" sx={{pt:1}}>
             Logout
+            </Typography>
           </MuiNextLink>
         </Button>
       </Stack>

@@ -10,10 +10,10 @@ import SideDrawer from "@/components/SideDrawer";
 import HideOnScroll from "@/components/HideOnScroll";
 import { useTheme } from "@mui/material/styles";
 import IconButton from '@mui/material/IconButton';
-import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import PodcastsIcon from '@mui/icons-material/Podcasts';
 import Stack from "@mui/material/Stack";
-
+import Divider from '@mui/material/Divider';
 
 export const navLinks = [{ title: `home`, path: `/` }];
 
@@ -28,17 +28,21 @@ const Header = () => {
               sx={{ display: `flex`, justifyContent: `space-between` }}
             >
             
-                <MuiNextLink  color="inherit"  activeClassName="active" href="/">
+                <MuiNextLink activeClassName="active" href="/">
 
                 
                 <IconButton
                   variant="contained"
                 >
                   <Stack
-                  direction="horizontal"
-                >
+                    direction="row"
+                    divider={<Divider orientation="vertical" flexItem />}
+                    spacing={1}
+                  >
                   <PodcastsIcon fontSize="large"/>
-                  Murder Savy
+                  <Typography color={theme.palette.text.primary} variant="subtitle" sx={{pt:1}}>
+                    Murder Savy
+                  </Typography>
                 </Stack>
                 </IconButton>
                 

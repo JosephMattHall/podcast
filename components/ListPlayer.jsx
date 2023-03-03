@@ -16,6 +16,7 @@ import Container from "@mui/material/Container";
 import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import { withTheme } from "@emotion/react";
+
 export default function Player({ trackList }) {
   const router = useRouter();
   const theme = useTheme();
