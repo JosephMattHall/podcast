@@ -18,11 +18,11 @@ const clientSideEmotionCache = createEmotionCache();
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 export default function ToggleColorMode({ Component, pageProps }) {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState("dark");
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+        setMode((prevMode) => (prevMode === "dark" ? "light" : "dark"));
       },
     }),
     []
