@@ -90,9 +90,8 @@ export default function Player({ trackList }) {
       setIsPlaying(false);
       audio.current.pause();
       audio.current = new Audio(trackList[index].src);
-      audio.current.onloadeddata = () => {
-        setDuration(audio.current.duration);
-      };
+      setDuration(0);
+      
     };
 
     router.events.on("routeChangeStart", handleRouteChange);
