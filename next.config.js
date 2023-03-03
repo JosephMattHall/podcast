@@ -6,13 +6,13 @@ const nextConfig = {
       test: /\.mp3$/,
       use: [
         {
-          loader: 'file-loader',
+          loader: "file-loader",
         },
       ],
-    })
+    });
 
-    return config
+    return config;
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

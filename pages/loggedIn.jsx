@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useAuth } from '@/auth/AuthUserContext';
-
-
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useAuth } from "@/auth/AuthUserContext";
 
 const LoggedIn = () => {
   const { authUser, loading } = useAuth();
@@ -10,14 +8,10 @@ const LoggedIn = () => {
 
   // Listen for changes on loading and authUser, redirect if needed
   useEffect(() => {
-    if (!loading && !authUser)
-      router.push('/');
-  }, [authUser, loading])
+    if (!loading && !authUser) router.push("/");
+  }, [authUser, loading]);
 
-  return (
-    <h1>logged in</h1>
-  );
-}
-
+  return <h1>logged in</h1>;
+};
 
 export default LoggedIn;

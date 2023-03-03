@@ -24,7 +24,7 @@ const BackToTop = ({ children }) => {
         onClick={handleClick}
         role="presentation"
         sx={{ position: "fixed", bottom: 16, right: 16 }}
-        style={{zIndex: 3}}
+        style={{ zIndex: 3 }}
       >
         {children}
       </Box>

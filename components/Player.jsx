@@ -1,6 +1,5 @@
-
-import { useState, useEffect, useRef  } from "react";
-import { useRouter } from 'next/router'
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 import Stack from "@mui/material/Stack";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
@@ -8,177 +7,166 @@ import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
-import IconButton from '@mui/material/IconButton';
-import Popover from '@mui/material/Popover';
+import IconButton from "@mui/material/IconButton";
+import Popover from "@mui/material/Popover";
 
 import { useTheme } from "@mui/material/styles";
 
-export default function Player({track}) {
+export default function Player({ track }) {
+  const router = useRouter();
+  const theme = useTheme();
 
+  const [error, setError] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [sliderPosition, setSliderPosition] = useState(0);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [volumePosition, setVolumePosition] = useState(100);
+  const [duration, setDuration] = useState(0);
 
-    const router = useRouter();
-    const theme = useTheme();
+  const audioRef = useRef(null);
 
-    const [error, setError] = useState(null);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [sliderPosition, setSliderPosition] = useState(0);
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [volumePosition, setVolumePosition] = useState(100);
-    const [duration, setDuration] = useState(0);
+  const handleVolumeClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    const audioRef = useRef(null);
+  const handleVolumeClose = () => {
+    setAnchorEl(null);
+  };
 
+  const open = Boolean(anchorEl);
+  const id = open ? "volumeController-popover" : undefined;
 
-    const handleVolumeClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    }
+  const handleVolumePositionChange = (event, newValue) => {
+    setVolumePosition(newValue);
+    setVolume(newValue);
+  };
 
-    const handleVolumeClose = () => {
-        setAnchorEl(null);
-    }
+  function setVolume(newValue) {
+    audioRef.current.volume = newValue / 100.0;
+  }
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'volumeController-popover' : undefined;
+  const handlePlaybackPositionChange = (event, newValue) => {
+    audioRef.current.currentTime = newValue;
+  };
 
-    const handleVolumePositionChange = (event, newValue) => {
-        setVolumePosition(newValue)
-        setVolume(newValue);
-        
-      };
+  const onPlayPause = () => {
+    isPlaying ? onPause() : onPlay();
+  };
 
-    function setVolume(newValue) {
-        audioRef.current.volume = (newValue / 100.0);
-    }
+  const onPlay = () => {
+    setIsPlaying(true);
+    audioRef.current.play();
+  };
 
-    const handlePlaybackPositionChange = (event, newValue) => {
-        audioRef.current.currentTime = newValue;
-      };
+  const onPause = () => {
+    setIsPlaying(false);
+    audioRef.current.pause();
+  };
 
-    const onPlayPause = () => {
-      isPlaying ? onPause() : onPlay();
-    }
+  useEffect(() => {
+    audioRef.current = new Audio(track.src);
+    audioRef.current.onloadeddata = () => {
+      setDuration(audioRef.current.duration);
+    };
+  }, []);
 
-    const onPlay = () => {
-      setIsPlaying(true);
-      audioRef.current.play();
-    }
-
-    const onPause = () => {
+  useEffect(() => {
+    const handleRouteChange = (url, { shallow }) => {
       setIsPlaying(false);
       audioRef.current.pause();
-    }
+    };
 
-    useEffect(() => {
-      audioRef.current = new Audio(track.src);
-      audioRef.current.onloadeddata = () => {
-          setDuration(audioRef.current.duration);
-      }
-    }, []);
+    router.events.on("routeChangeStart", handleRouteChange);
 
-    useEffect(() => {
-      const handleRouteChange = (url, { shallow }) => {
-        setIsPlaying(false);
-        audioRef.current.pause();
-      }
-  
-      router.events.on('routeChangeStart', handleRouteChange)
-  
-      // If the component is unmounted, unsubscribe
-      // from the event with the `off` method:
-      return () => {
-        router.events.off('routeChangeStart', handleRouteChange)
-      }
-    }, [])
-    
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setSliderPosition(audioRef.current.currentTime);
-      }, 300);
-      return () => clearInterval(interval);
-    }, [sliderPosition]);
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method:
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, []);
 
-    return (
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSliderPosition(audioRef.current.currentTime);
+    }, 300);
+    return () => clearInterval(interval);
+  }, [sliderPosition]);
 
-      <div ref={audioRef}>
-        <Box
-            align="center"
-            justifyContent="center"
-            sx={{
-                //pt:3
-            }}
-          >
-            <Typography component="div" variant="h5">
-                {track.title}
-            </Typography>
-            </Box>
-        <Stack direction="row" spacing={2}>
+  return (
+    <div ref={audioRef}>
+      <Box
+        align="center"
+        justifyContent="center"
+        sx={
+          {
+            //pt:3
+          }
+        }
+      >
+        <Typography component="div" variant="h5">
+          {track.title}
+        </Typography>
+      </Box>
+      <Stack direction="row" spacing={2}>
         <IconButton
           aria-describedby={id}
           veriant="contained"
-          onClick={handleVolumeClick}    
+          onClick={handleVolumeClick}
         >
           <VolumeUpIcon />
         </IconButton>
-            
-          <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleVolumeClose}
-              anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-              }}
-          >
-            <Box
-                sx={{
 
-                    minWidth: 100,
-                    alignContent: "center",
-                    paddingLeft: 2,
-                    paddingRight: 2,
-
-                }}
-            >
-              <Slider
-                  min={0}
-                  max={100}
-                  value={volumePosition}
-                  onChange={handleVolumePositionChange}
-                  color="error"
-              />
-            </Box>
-          </Popover>
-          <Slider
-            aria-label="Trackrogress"
-            defaultValue={0}
-            min={0}
-            max={150}
-            value={sliderPosition}
-            step={1}
-            onChange={handlePlaybackPositionChange}
-            color="error"
-            size="small"
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleVolumeClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+        >
+          <Box
             sx={{
-            pt: 5
+              minWidth: 100,
+              alignContent: "center",
+              paddingLeft: 2,
+              paddingRight: 2,
             }}
-          />
-          {isPlaying ? (
-          <IconButton
-            onClick={onPlayPause}
           >
+            <Slider
+              min={0}
+              max={100}
+              value={volumePosition}
+              onChange={handleVolumePositionChange}
+              color="error"
+            />
+          </Box>
+        </Popover>
+        <Slider
+          aria-label="Trackrogress"
+          defaultValue={0}
+          min={0}
+          max={150}
+          value={sliderPosition}
+          step={1}
+          onChange={handlePlaybackPositionChange}
+          color="error"
+          size="small"
+          sx={{
+            pt: 5,
+          }}
+        />
+        {isPlaying ? (
+          <IconButton onClick={onPlayPause}>
             <PauseCircleOutlineIcon fontSize="large" />
           </IconButton>
-          ) : (
-          <IconButton
-            onClick={onPlayPause}
-          >
+        ) : (
+          <IconButton onClick={onPlayPause}>
             <PlayCircleOutlineIcon fontSize="large" />
           </IconButton>
-            )}
-        </Stack>
-      </div>
-
-        
-    )
-        }
+        )}
+      </Stack>
+    </div>
+  );
+}
