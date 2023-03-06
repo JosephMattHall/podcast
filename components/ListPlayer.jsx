@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef, useId } from "react";
+import { useState, useEffect, useRef } from "react";
 import Stack from "@mui/material/Stack";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
@@ -15,7 +15,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Container from "@mui/material/Container";
 import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/router";
-import { withTheme } from "@emotion/react";
 
 export default function Player({ trackList }) {
   const router = useRouter();
@@ -27,6 +26,7 @@ export default function Player({ trackList }) {
   const [volumePosition, setVolumePosition] = useState(100);
   const [duration, setDuration] = useState(0);
   const audio = useRef(null);
+  const [title, setTitle] = useState("");
 
   const handleVolumeOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -69,10 +69,11 @@ export default function Player({ trackList }) {
     audio.current.pause();
     setIsPlaying(false);
     setIndex(newIndex);
-
-    audio.current = new Audio(trackList[index].src);
+    setTitle(trackList[index].title);
+    audio.current = new Audio(trackList[index].audio);
     audio.current.onloadeddata = () => {
       setDuration(audio.current.duration);
+
     };
     if (wasPlaying) {
       setIsPlaying(true);
@@ -80,9 +81,10 @@ export default function Player({ trackList }) {
   };
 
   useEffect(() => {
-    audio.current = new Audio(trackList[index].src);
+    audio.current = new Audio(trackList[index].audio);
     audio.current.onloadeddata = () => {
       setDuration(audio.current.duration);
+      setTitle(trackList[index].title);
     };
   }, []);
 
@@ -90,8 +92,9 @@ export default function Player({ trackList }) {
     const handleRouteChange = (url, { shallow }) => {
       setIsPlaying(false);
       audio.current.pause();
-      audio.current = new Audio(trackList[index].src);
+      audio.current = new Audio(trackList[index].audio);
       setDuration(0);
+
       
     };
 
@@ -134,7 +137,7 @@ export default function Player({ trackList }) {
           }}
         >
           <Typography variant="h5">
-            <p>title placeholder</p>
+            <p>{title}</p>
           </Typography>
         </Container>
         <Stack direction="row" alignItems="center" spacing={1}>
@@ -204,24 +207,16 @@ export default function Player({ trackList }) {
             backgroundColor: theme.palette.secondary.main,
           }}
         >
+        {trackList.map((track, x) => (
           <ListItemButton
-            selected={index === 0}
-            onClick={(event) => handleTrackListItemClick(event, 0)}
+          key={x}
+            selected={index === x}
+            onClick={(event) => handleTrackListItemClick(event, x)}
           >
-            <ListItemText primary={trackList[0].title} />
+            <ListItemText primary={track.title} />
           </ListItemButton>
-          <ListItemButton
-            selected={index === 1}
-            onClick={(event) => handleTrackListItemClick(event, 1)}
-          >
-            <ListItemText primary={trackList[1].title} />
-          </ListItemButton>
-          <ListItemButton
-            selected={index === 2}
-            onClick={(event) => handleTrackListItemClick(event, 2)}
-          >
-            <ListItemText primary={trackList[2].title} />
-          </ListItemButton>
+        ))}
+          
         </List>
       </Container>
     </div>
