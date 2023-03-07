@@ -7,6 +7,11 @@ import MuiNextLink from "./MuiNextLink";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useTheme } from "@mui/material/styles";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import { signOut } from "firebase/auth";
+import { useIdToken } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase-config";
 
 const SideDrawer = ({ navLinks }) => {
   const router = useRouter();
@@ -14,6 +19,18 @@ const SideDrawer = ({ navLinks }) => {
   const [state, setState] = useState({
     right: false,
   });
+  const [user, loading, error] = useIdToken(auth);
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    signOut(auth).then(() => {
+      alert("signed out");
+    }).catch((error) => {
+      alert("error");
+      console.error();
+    });
+      
+  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -33,20 +50,41 @@ const SideDrawer = ({ navLinks }) => {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
+    <Stack direction="column" sx={{alignItems: "center", justifyContent: "center"}}>
       {navLinks.map(({ title, path }, i) => (
         <Typography
-          
           variannt="p"
           key={`${title}${i}`}
           sx={{
-            ml: 5,
-            my: 2,
             textTransform: `uppercase`,
           }}
         >
           <MuiNextLink color={theme.palette.text.primary} href={path}>{title}</MuiNextLink>
         </Typography>
       ))}
+      <Stack direction="row" alignItems="center" >
+      {user ? (
+        <>
+        <Typography color={theme.palette.text.primary} variant="subtitle" sx={{ textTransform: `uppercase` }}>
+        {user.displayName}
+      </Typography>
+        <Button variant="text" onClick={handleLogout}>
+          <Typography color={theme.palette.text.primary} variant="subtitle">
+            Logout
+          </Typography>
+        </Button>
+        </>
+            ) : (
+              <>
+        <Button variant="text" onClick={() => router.push("/admin/login")}>
+          <Typography color={theme.palette.text.primary} variant="subtitle">
+            Login
+          </Typography>
+        </Button>
+        </>
+            )}
+      </Stack>
+      </Stack>
     </Box>
   );
 

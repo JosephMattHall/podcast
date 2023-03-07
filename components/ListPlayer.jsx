@@ -69,8 +69,8 @@ export default function Player({ trackList }) {
     audio.current.pause();
     setIsPlaying(false);
     setIndex(newIndex);
-    setTitle(trackList[index].title);
-    audio.current = new Audio(trackList[index].audio);
+    setTitle(trackList[newIndex].title)
+    audio.current = new Audio(trackList[newIndex].audio);
     audio.current.onloadeddata = () => {
       setDuration(audio.current.duration);
 
@@ -84,8 +84,9 @@ export default function Player({ trackList }) {
     audio.current = new Audio(trackList[index].audio);
     audio.current.onloadeddata = () => {
       setDuration(audio.current.duration);
-      setTitle(trackList[index].title);
+  
     };
+    setTitle(trackList[index].title)
   }, []);
 
   useEffect(() => {
@@ -93,7 +94,10 @@ export default function Player({ trackList }) {
       setIsPlaying(false);
       audio.current.pause();
       audio.current = new Audio(trackList[index].audio);
-      setDuration(0);
+      audio.current.onloadeddata = () => {
+        setDuration(audio.current.duration);
+    
+      };
 
       
     };
@@ -124,36 +128,33 @@ export default function Player({ trackList }) {
 
   return (
     <div ref={audio}>
-      <Container
-        sx={{
-          p: 5,
-          boxShadow: 5,
-        }}
-      >
+      <Container maxWidth="xl">
         <Container
           align="center"
           sx={{
-            pt: 2,
+            pt: 5,
           }}
         >
           <Typography variant="h5">
             <p>{title}</p>
           </Typography>
         </Container>
-        <Stack direction="row" alignItems="center" spacing={1}>
+        <Stack direction="row" alignItems="center" spacing={1} sx={{pb: 2}}>
           <Box
-            sx={{
-              pl: 3,
+          sx={{
+              px: 2
+
             }}
           >
             <IconButton
-              aria-describedby={id}
-              veriant="contained"
+            aria-describedby={id}
+            veriant="contained"
               onClick={handleVolumeOpen}
             >
               <VolumeUpIcon />
             </IconButton>
             <Popover
+            
               id={id}
               open={open}
               anchorEl={anchorEl}
@@ -163,6 +164,14 @@ export default function Player({ trackList }) {
                 horizontal: "left",
               }}
             >
+            <Box
+            sx={{
+              minWidth: 100,
+              alignContent: "center",
+              paddingLeft: 2,
+              paddingRight: 2,
+            }}
+          >
               <Slider
                 min={0}
                 max={100}
@@ -170,15 +179,17 @@ export default function Player({ trackList }) {
                 onChange={handleVolumePositionChange}
                 color="error"
               />
+              </Box>
             </Popover>
           </Box>
-          <Box sx={{ width: "100vw" }}>
+          <Box sx={{pt:1, width: "100%" }}>
             <Slider
               aria-label="Trackrogress"
               defaultValue={0}
               min={0}
-              max={duration}
-              value={sliderPosition}
+              /* duration and sliderPosition can be NaN on initial page load */ 
+              max={duration ? duration : 100}
+              value={sliderPosition ? sliderPosition : 0}
               step={1}
               onChange={handlePlaybackPositionChange}
               color="error"
@@ -187,7 +198,8 @@ export default function Player({ trackList }) {
           </Box>
           <Box
             sx={{
-              pr: 3,
+              px: 2
+
             }}
           >
             {isPlaying ? (
@@ -204,12 +216,12 @@ export default function Player({ trackList }) {
 
         <List
           sx={{
-            backgroundColor: theme.palette.secondary.main,
+            backgroundColor: theme.palette.background.default,
           }}
         >
         {trackList.map((track, x) => (
           <ListItemButton
-          key={x}
+          key={track.id}
             selected={index === x}
             onClick={(event) => handleTrackListItemClick(event, x)}
           >

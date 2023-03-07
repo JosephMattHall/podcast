@@ -5,7 +5,6 @@ import { ThemeProvider, useTheme, createTheme } from "@mui/material/styles";
 import { CacheProvider } from "@emotion/react";
 import { AuthUserProvider } from "../auth/AuthUserContext";
 import createEmotionCache from "@/themes/createEmotionCache";
-
 import IconButton from "@mui/material/IconButton";
 import Header from "@/components/Header";
 import Box from "@mui/material/Box";
@@ -93,6 +92,7 @@ export default function ToggleColorMode({ Component, pageProps }) {
               content="initial-scale=1, width=device-width"
             />
           </Head>
+
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
           <Header />
@@ -101,23 +101,20 @@ export default function ToggleColorMode({ Component, pageProps }) {
             <Box
               sx={{
                 display: "flex",
-                width: "100%",
                 alignItems: "center",
                 justifyContent: "center",
-                borderRadius: 1,
-                m: 2,
               }}
             >
               {currentTheme.palette.mode} mode
               <IconButton
                 sx={{ ml: 1 }}
                 onClick={colorMode.toggleColorMode}
-                color={currentTheme.palette.text.primary.valueOf()}
+                
               >
                 {currentTheme.palette.mode === "light" ? (
-                  <Brightness7Icon foregroundColor={currentTheme.palette.primary.dark} />
+                  <Brightness7Icon />
                 ) : (
-                  <Brightness4Icon color={currentTheme.palette.primary.dark.toString()} />
+                  <Brightness4Icon />
                 )}
               </IconButton>
             </Box>

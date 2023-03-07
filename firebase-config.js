@@ -15,11 +15,12 @@ const firebaseConfig = {
   storageBucket: "podcast-site-78d48.appspot.com",
   messagingSenderId: "283854142727",
   appId: "1:283854142727:web:1182c614116980876619a2",
+  measurementId: "G-6XVJ9XYZ9C"
 };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-//const analytics = getAnalytics(app);
+
 
 export const db = getFirestore(app);
 export const storage = getStorage(app);
