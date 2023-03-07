@@ -30,7 +30,7 @@ export default function Home() {
       setLoading(true);
       const episodesRef = collection(db, 'episodes');
       const episodesSnapshot = await getDocs(episodesRef);
-      const episodesData = episodesSnapshot.docs.map((doc) => ( doc.data() ));
+      const episodesData = episodesSnapshot.docs.map((doc) => ({id: doc.id, ...doc.data() }));
       setEpisodes(episodesData);
     };
     fetchEpisodes();

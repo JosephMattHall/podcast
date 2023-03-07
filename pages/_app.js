@@ -112,12 +112,12 @@ export default function ToggleColorMode({ Component, pageProps }) {
               <IconButton
                 sx={{ ml: 1 }}
                 onClick={colorMode.toggleColorMode}
-                color={currentTheme.palette.text.primary.valueOf()}
+                
               >
                 {currentTheme.palette.mode === "light" ? (
-                  <Brightness7Icon foregroundColor={currentTheme.palette.primary.dark} />
+                  <Brightness7Icon />
                 ) : (
-                  <Brightness4Icon color={currentTheme.palette.primary.dark.toString()} />
+                  <Brightness4Icon />
                 )}
               </IconButton>
             </Box>
