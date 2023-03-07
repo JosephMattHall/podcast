@@ -9,7 +9,6 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import { useTheme } from "@mui/material/styles";
-
 import { useRouter } from "next/router";
 import logo from "@/public/logo.png";
 
@@ -55,7 +54,7 @@ export default function Hero() {
                 <Typography variant="p" paddingRight={1}>
                   Listen Now
                 </Typography>
-                <PodcastsIcon />
+                <LaunchOutlinedIcon />
               </span>
             </Button>
           </Container>

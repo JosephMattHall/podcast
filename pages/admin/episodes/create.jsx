@@ -2,12 +2,13 @@ import * as React from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import Button from "@mui/material/Button";
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import { storage } from "@/firebase-config";
-import { collection, addDoc, FieldValue } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import Alert from "@mui/material/Alert";
 import { db } from "@/firebase-config";
-
+import Collapse from '@mui/material/Collapse';
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -19,12 +20,20 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Stack from "@mui/material/Stack";
 
 export default function CreateEpisode() {
+
   const router = useRouter();
 
+  const [severity, setSeverity] = useState(null);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState(null);
   const [selectedFile, setSelectedFile] = useState("");
   const [fileUrl, setFileUrl] = useState("");
   const [isReady, setIsReady] = useState(false);
   const [circularProgress, setCircularProgress] = useState(0);
+
+  const handleCollapse = () => {
+    setError((prev) => !prev);
+  };
 
   // Create the file metadata
   /** @type {any} */
@@ -39,7 +48,25 @@ export default function CreateEpisode() {
 
   function handleFileUpload() {
     if (!selectedFile) {
-      alert("Please choose a file first!");
+      setError(true);
+      setSeverity("info")
+      setMessage("Please choose a file first!");
+    }
+    switch(selectedFile.type){
+      case 'audio/mpeg':
+        //('image type is png');
+        break;
+      case 'audio/wav':
+        //('image/jpg')
+        break;
+      case 'audio/ogg':
+        //('image is jpeg')
+        break;
+      default:
+        setError(true);
+        setSeverity("error")
+        setMessage("ERROR: Invalid file type.");
+        return
     }
 
     const storageRef = ref(storage, `/${selectedFile.name}`);
@@ -55,6 +82,9 @@ export default function CreateEpisode() {
         switch (snapshot.state) {
           case "paused":
             console.log("Upload is paused");
+            setError(true);
+            setSeverity("warning")
+            setMessage("Upload Paused");
             break;
           case "running":
             console.log("Upload is running");
@@ -67,21 +97,33 @@ export default function CreateEpisode() {
         switch (error.code) {
           case "storage/unauthorized":
             // User doesn't have permission to access the object
+            setError(true);
+            setSeverity("error")
+            setMessage("ERROR: Unauthorized User");
             break;
           case "storage/canceled":
             // User canceled the upload
+            setError(true);
+            setSeverity("warning")
+            setMessage("Upload Cancled");
             break;
 
           // ...
 
           case "storage/unknown":
             // Unknown error occurred, inspect error.serverResponse
+            setError(true);
+            setSeverity("error")
+            setMessage("ERROR: Unknown error occured");
             break;
         }
       },
       () => {
-        // Upload compconsted successfully, now we can get the download URL
+        // Upload completed successfully, now we can get the download URL
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setError(true);
+          setSeverity("success")
+          setMessage("SUCCESS: Upload complete. Complete fields then Save Episode!");
           setFileUrl(downloadURL);
           setIsReady(true);
         });
@@ -121,10 +163,10 @@ export default function CreateEpisode() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar>
           <LoginIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography variant="h5">
           Add episode
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -165,24 +207,23 @@ export default function CreateEpisode() {
             id="artwork"
             autoComplete="Artwork url"
           />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="duration"
-            label="duration"
-            id="duration"
-            autoComplete="Duration in seconds"
-          />
-          <input accept="audio" type="file" onChange={handleFileChange} />
+          <Stack direction="row">
+            <Button
+              variant="contained"
+              component="label"
+            >
+              Choose File
 
-          <Button
-            onClick={handleFileUpload}
-            variant="contained"
-            component="label"
-          >
-            Upload
-          </Button>
+              <input hidden accept="audio/*" type="file" onChange={handleFileChange} />
+            </Button>
+            <Button
+              onClick={handleFileUpload}
+              variant="contained"
+              component="label"
+            >
+              Upload
+            </Button>
+          </Stack>
           <LinearProgress
             variant="determinate"
             color="secondary"
@@ -200,7 +241,9 @@ export default function CreateEpisode() {
           </Button>
         </Box>
       </Box>
-      <Alert severity="error">This is an error alert — check it out!</Alert>
+      <Collapse in={error}>
+        <Alert severity={severity ? severity : "error"}>{message ? message : "ERROR"}</Alert>
+      </Collapse>
     </Container>
   );
 }
