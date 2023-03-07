@@ -94,7 +94,10 @@ export default function Player({ trackList }) {
       setIsPlaying(false);
       audio.current.pause();
       audio.current = new Audio(trackList[index].audio);
-      setDuration(0);
+      audio.current.onloadeddata = () => {
+        setDuration(audio.current.duration);
+    
+      };
 
       
     };

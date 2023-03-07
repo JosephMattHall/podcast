@@ -5,7 +5,6 @@ import { ThemeProvider, useTheme, createTheme } from "@mui/material/styles";
 import { CacheProvider } from "@emotion/react";
 import { AuthUserProvider } from "../auth/AuthUserContext";
 import createEmotionCache from "@/themes/createEmotionCache";
-
 import IconButton from "@mui/material/IconButton";
 import Header from "@/components/Header";
 import Box from "@mui/material/Box";
@@ -93,6 +92,7 @@ export default function ToggleColorMode({ Component, pageProps }) {
               content="initial-scale=1, width=device-width"
             />
           </Head>
+
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
           <Header />
