@@ -128,7 +128,7 @@ export default function Player({ trackList }) {
 
   return (
     <div ref={audio}>
-      <Container>
+      <Container maxWidth="xl">
         <Container
           align="center"
           sx={{
@@ -216,7 +216,7 @@ export default function Player({ trackList }) {
 
         <List
           sx={{
-            backgroundColor: theme.palette.secondary.main,
+            backgroundColor: theme.palette.primary.dark,
           }}
         >
         {trackList.map((track, x) => (

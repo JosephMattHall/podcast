@@ -31,7 +31,7 @@ const Navbar = () => {
         display: { xs: `none`, md: `flex` },
       }}
     >
-      <Stack direction="row">
+      <Stack direction="row" alignItems="center">
       {user ? (
         <>
         <Typography color={theme.palette.text.primary} variant="subtitle">

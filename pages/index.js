@@ -6,6 +6,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/firebase-config';
 import { useTheme } from "@mui/material/styles";
 import ListPlayer from "@/components/ListPlayer";
+import Divider from '@mui/material/Divider';
 
 export default function Home() {
   const theme = useTheme();
@@ -30,7 +31,15 @@ export default function Home() {
         <title>Murder Savy | Home</title>
       </Head>
         <Hero />
-        <Box>
+        <Divider variant="middle" sx={{ my: 15 }}/>
+        <Box
+        sx={{
+          m: 5,
+          pb: 5,
+          backgroundColor: theme.palette.primary.main,
+          boxShadow: 8,
+          borderRadius: 10
+        }}>
         { loading && 
           <p>loading...</p>
         }
