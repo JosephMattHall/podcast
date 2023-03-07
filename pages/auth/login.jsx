@@ -6,18 +6,19 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LoginIcon from "@mui/icons-material/Login";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useRouter } from "next/router";
 import { auth } from "@/firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useIdToken } from "react-firebase-hooks/auth";
+import { useRouter } from "next/router";
 
-const Login = () => {
+export default function Login() {
+
   const router = useRouter();
-
   const [user, loading, error] = useIdToken(auth);
 
   const handleSubmit = (event) => {
@@ -25,7 +26,18 @@ const Login = () => {
     const data = new FormData(event.currentTarget);
     let email = data.get("email");
     let password = data.get("password");
-    signInWithEmailAndPassword(auth, email, password);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        console.log("signed in");
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        //do something with error
+      });
   };
 
   if (loading) {
@@ -51,6 +63,7 @@ const Login = () => {
       </>
     );
   }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -66,7 +79,7 @@ const Login = () => {
           <LoginIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Login
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -101,13 +114,20 @@ const Login = () => {
           >
             Sign In
           </Button>
-          <Link href="#" variant="body2">
-            {"Don't have an account? Sign Up"}
-          </Link>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="#" variant="body2">
+                Dont have an account? Sign Up
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>
   );
-};
-
-export default Login;
+}

@@ -9,7 +9,6 @@ import Alert from "@mui/material/Alert";
 import { db } from "@/firebase-config";
 
 import Avatar from "@mui/material/Avatar";
-import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";

@@ -11,13 +11,15 @@ import Box from "@mui/material/Box";
 import LoginIcon from "@mui/icons-material/Login";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { auth } from "../firebase-config";
+import { auth } from "@/firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useIdToken } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 
 export default function Signup() {
   const router = useRouter();
+  const [user, loading, error] = useIdToken(auth);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -41,6 +43,30 @@ export default function Signup() {
         });
     else console.log("Password do not match");
   };
+
+  if (loading) {
+    return (
+      <div>
+        <p>Initialising User...</p>
+      </div>
+    );
+  }
+  if (error) {
+    //during dev at least
+    return (
+      <div>
+        <p>Error: {error}</p>
+      </div>
+    );
+  }
+  if (user) {
+    router.push("/");
+    return (
+      <>
+        <p>Redirecting...</p>
+      </>
+    );
+  }
 
   return (
     <Container component="main" maxWidth="xs">
