@@ -45,7 +45,7 @@ const Navbar = () => {
         </>
             ) : (
               <>
-        <Button variant="text" onClick={() => router.push("/auth/login")}>
+        <Button variant="text" onClick={() => router.push("/admin/login")}>
           <Typography color={theme.palette.text.primary} variant="subtitle">
             Login
           </Typography>
