@@ -128,24 +128,24 @@ export default function Player({ trackList }) {
 
   return (
     <div ref={audio}>
-      <Container
-        sx={{
-          p: 5,
-          boxShadow: 5,
-        }}
-      >
+      <Container>
         <Container
           align="center"
           sx={{
-            pt: 2,
+            pt: 5,
           }}
         >
           <Typography variant="h5">
             <p>{title}</p>
           </Typography>
         </Container>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <Box>
+        <Stack direction="row" alignItems="center" spacing={1} sx={{pb: 2}}>
+          <Box
+          sx={{
+              px: 2
+
+            }}
+          >
             <IconButton
             aria-describedby={id}
             veriant="contained"
@@ -182,13 +182,14 @@ export default function Player({ trackList }) {
               </Box>
             </Popover>
           </Box>
-          <Box sx={{ width: "100vw" }}>
+          <Box sx={{pt:1, width: "100%" }}>
             <Slider
               aria-label="Trackrogress"
               defaultValue={0}
               min={0}
-              max={duration}
-              value={sliderPosition}
+              /* duration and sliderPosition can be NaN on initial page load */ 
+              max={duration ? duration : 100}
+              value={sliderPosition ? sliderPosition : 0}
               step={1}
               onChange={handlePlaybackPositionChange}
               color="error"
@@ -197,6 +198,7 @@ export default function Player({ trackList }) {
           </Box>
           <Box
             sx={{
+              px: 2
 
             }}
           >

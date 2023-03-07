@@ -23,17 +23,17 @@ export default function Hero() {
             priority={true}
             src={logo}
             alt="logo"
-            width={400}
-            height={400}
+            width={300}
+            height={300}
             style={{
-              width: "400px",
+              width: "300px",
               borderRadius: "100%",
               overflow: "hidden",
             }}
           />
         </Container>
       </Grid>
-      <Grid item xs={12} md={7} align="center" justifyContent="center">
+      <Grid item xs={12} md={7} align="center" alignItems="center" justifyContent="center">
         <Stack direction="column">
           <Typography variant="h3">Murder Savy</Typography>
           <Typography variant="h6">
@@ -41,6 +41,7 @@ export default function Hero() {
             through stories of survival, strange events, questionable
             occurrences, myths, legends, and without a doubt, murder, savvy?
           </Typography>
+          {/*
           <Container
             sx={{
               pt: 5,
@@ -50,14 +51,15 @@ export default function Hero() {
               variant="contained"
               sx={{ width: "200px", fontSize: "16px" }}
             >
-              <span onClick={() => router.push("/test")}>
+              <span onClick={() => router.push("/about")}>
                 <Typography variant="p" paddingRight={1}>
-                  Listen Now
+                  Learn More
                 </Typography>
                 <LaunchOutlinedIcon />
               </span>
             </Button>
           </Container>
+          */}
         </Stack>
       </Grid>
     </Grid>

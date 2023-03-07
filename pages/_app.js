@@ -101,11 +101,8 @@ export default function ToggleColorMode({ Component, pageProps }) {
             <Box
               sx={{
                 display: "flex",
-                width: "100%",
                 alignItems: "center",
                 justifyContent: "center",
-                borderRadius: 1,
-                m: 2,
               }}
             >
               {currentTheme.palette.mode} mode
