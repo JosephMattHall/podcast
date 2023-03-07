@@ -21,6 +21,7 @@ export default function Hero() {
       <Grid item xs={12} md={5}>
         <Container align="center">
           <Image
+            priority={true}
             src={logo}
             alt="logo"
             width={400}
