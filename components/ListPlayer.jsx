@@ -216,7 +216,7 @@ export default function Player({ trackList }) {
 
         <List
           sx={{
-            backgroundColor: theme.palette.primary.dark,
+            backgroundColor: theme.palette.background.default,
           }}
         >
         {trackList.map((track, x) => (
