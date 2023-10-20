@@ -7,10 +7,17 @@ import { MoreVert } from '@mui/icons-material';
 import * as Icons from './Icons'; // Import all the icons from the Icons.jsx file
 
 const defaultPlatforms = [
-  { name: 'Spotify', url: 'https://www.spotify.com/', icon: <Icons.SpotifyIcon /> },
-  { name: 'Apple Podcasts', url: 'https://www.apple.com/apple-podcasts/', icon: <Icons.ApplePodcastsIcon /> },
-  // ... (add other default platforms)
-];
+    { name: 'iTunes', url: 'https://itunes.com/', icon: <Icons.ItunesIcon /> },//edit the urls to link to your profile on that platform or whatever
+    { name: 'Google Podcasts', url: 'https://podcasts.google.com/', icon: <Icons.GooglePodcastsIcon /> },
+    { name: 'Apple Podcasts', url: 'https://www.apple.com/apple-podcasts/', icon: <Icons.ApplePodcastsIcon /> },
+    { name: 'Spotify', url: 'https://www.spotify.com/', icon: <Icons.SpotifyIcon /> },
+    { name: 'Pocket Casts', url: 'https://www.pocketcasts.com/', icon: <Icons.PocketCastsIcon /> },
+    { name: 'Castbox', url: 'https://castbox.fm/', icon: <Icons.CastboxIcon /> },
+    { name: 'Podbean', url: 'https://www.podbean.com/', icon: <Icons.PodbeanIcon /> },
+    { name: 'iHeart', url: 'https://www.iheart.com/', icon: <Icons.IheartIcon /> },
+    // Add other platforms as needed
+  ];
+  
 
 const FindUs = ({ platforms = defaultPlatforms }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -29,7 +36,7 @@ const FindUs = ({ platforms = defaultPlatforms }) => {
   return (
     <div>
       <Stack spacing={1} direction="row">
-        {platforms.slice(0, 10).map((platform) => (
+        {platforms.slice(0, 8).map((platform) => (
           <IconButton
             key={platform.name}
             aria-describedby={id}

@@ -17,8 +17,6 @@ export function SpotifyIcon() {
     </SvgIcon>
   );
 }
-
-
 // iTunes Icon
 export function ItunesIcon() {
   return (
@@ -35,7 +33,6 @@ export function ItunesIcon() {
     </SvgIcon>
   );
 }
-
 // Pocket Casts Icon
 export function PocketCastsIcon() {
   return (
@@ -52,7 +49,6 @@ export function PocketCastsIcon() {
     </SvgIcon>
   );
 }
-
 // Google Podcasts Icon
 export function GooglePodcastsIcon() {
   return (
@@ -69,8 +65,6 @@ export function GooglePodcastsIcon() {
     </SvgIcon>
   );
 }
-
-
 // Castbox Icon
 export function CastboxIcon() {
   return (
@@ -87,8 +81,6 @@ export function CastboxIcon() {
     </SvgIcon>
   );
 }
-
-
 // Podbean Icon
 export function PodbeanIcon() {
   return (
@@ -105,8 +97,6 @@ export function PodbeanIcon() {
     </SvgIcon>
   );
 }
-
-
 // Apple Podcasts Icon
 export function ApplePodcastsIcon() {
   return (
@@ -123,27 +113,7 @@ export function ApplePodcastsIcon() {
     </SvgIcon>
   );
 }
-
-
-// Add icons for other podcast platforms as needed, following the same pattern.
-
 // iHeartRadio Icon
-export function IHeartRadioIcon() {
-  return (
-    <SvgIcon>
-      {/* Replace the path data with iHeartRadio icon */}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-      >
-        {/* iHeartRadio path data */}
-      </svg>
-    </SvgIcon>
-  );
-}
 export function IHeartRadioIcon() {
   return (
     <SvgIcon>
