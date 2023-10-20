@@ -20,7 +20,6 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Stack from "@mui/material/Stack";
 
 export default function CreateEpisode() {
-
   const router = useRouter();
 
   const [severity, setSeverity] = useState(null);
@@ -31,42 +30,43 @@ export default function CreateEpisode() {
   const [isReady, setIsReady] = useState(false);
   const [circularProgress, setCircularProgress] = useState(0);
 
+  const handleError = (severity, message) => {
+    setError(true);
+    setSeverity(severity);
+    setMessage(message);
+  };
+
   const handleCollapse = () => {
     setError((prev) => !prev);
   };
 
-  // Create the file metadata
-  /** @type {any} */
   const metadata = {
     contentType: "audio/mpeg",
   };
 
-  // Handles input change event and updates state
   function handleFileChange(event) {
     setSelectedFile(event.target.files[0]);
   }
 
   function handleFileUpload() {
     if (!selectedFile) {
-      setError(true);
-      setSeverity("info")
-      setMessage("Please choose a file first!");
+      handleError("info", "Please choose a file first!");
+      return;
     }
-    switch(selectedFile.type){
+
+    switch(selectedFile.type) {
       case 'audio/mpeg':
-        //('image type is png');
+        // Handle valid file type
         break;
       case 'audio/wav':
-        //('image/jpg')
+        // Handle another valid file type
         break;
       case 'audio/ogg':
-        //('image is jpeg')
+        // Handle another valid file type
         break;
       default:
-        setError(true);
-        setSeverity("error")
-        setMessage("ERROR: Invalid file type.");
-        return
+        handleError('error', 'ERROR: Invalid file type.');
+        return;
     }
 
     const storageRef = ref(storage, `/${selectedFile.name}`);
@@ -75,55 +75,20 @@ export default function CreateEpisode() {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setCircularProgress(progress);
-        switch (snapshot.state) {
-          case "paused":
-            console.log("Upload is paused");
-            setError(true);
-            setSeverity("warning")
-            setMessage("Upload Paused");
-            break;
-          case "running":
-            console.log("Upload is running");
-            break;
+
+        if (snapshot.state === "paused") {
+          handleError("warning", "Upload Paused");
         }
       },
       (error) => {
-        // A full list of error codes is available at
-        // https://firebase.google.com/docs/storage/web/handle-errors
-        switch (error.code) {
-          case "storage/unauthorized":
-            // User doesn't have permission to access the object
-            setError(true);
-            setSeverity("error")
-            setMessage("ERROR: Unauthorized User");
-            break;
-          case "storage/canceled":
-            // User canceled the upload
-            setError(true);
-            setSeverity("warning")
-            setMessage("Upload Cancled");
-            break;
-
-          // ...
-
-          case "storage/unknown":
-            // Unknown error occurred, inspect error.serverResponse
-            setError(true);
-            setSeverity("error")
-            setMessage("ERROR: Unknown error occured");
-            break;
-        }
+        handleError("error", `ERROR: ${error.message}`);
       },
       () => {
-        // Upload completed successfully, now we can get the download URL
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setError(true);
-          setSeverity("success")
-          setMessage("SUCCESS: Upload complete. Complete fields then Save Episode!");
+          handleError("success", "SUCCESS: Upload complete. Complete fields then Save Episode!");
           setFileUrl(downloadURL);
           setIsReady(true);
         });
@@ -147,6 +112,7 @@ export default function CreateEpisode() {
       season: season,
       episode: episode,
       duration: duration,
+      published: new Date(), // Add the current timestamp
     });
 
     router.push("/");
@@ -213,7 +179,6 @@ export default function CreateEpisode() {
               component="label"
             >
               Choose File
-
               <input hidden accept="audio/*" type="file" onChange={handleFileChange} />
             </Button>
             <Button
