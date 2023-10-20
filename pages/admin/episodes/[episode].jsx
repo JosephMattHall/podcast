@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { Container, Box, TextField, Button, Stack } from "@mui/material";
-
+import { db } from '@/firebase-config';
 export default function EpisodeDetails() {
   const router = useRouter();
   const { episode } = router.query;
@@ -17,17 +17,20 @@ export default function EpisodeDetails() {
       try {
         const docRef = doc(db, "episodes", episode);
         const docSnap = await getDoc(docRef);
-
+  
+        console.log("DocSnap:", docSnap); // Add this line
+  
         if (docSnap.exists()) {
           setEpisodeData(docSnap.data());
         } else {
           handleError("error", "Episode not found");
         }
       } catch (error) {
+        console.error("Fetch Error:", error); // Add this line
         handleError("error", "Error fetching episode details");
       }
     };
-
+  
     if (episode) {
       fetchEpisodeDetails();
     }
@@ -78,7 +81,6 @@ export default function EpisodeDetails() {
           alignItems: "center",
         }}
       >
-        {/* ... (previous JSX) */}
         <Box component="form" onSubmit={handleUpdateEpisode} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
@@ -134,7 +136,7 @@ export default function EpisodeDetails() {
             label="Published"
             id="published"
             autoComplete="Published Date"
-            defaultValue={episodeData.published}
+            defaultValue={episodeData.published?.toDate().toLocaleString()}
           />
           <TextField
             margin="normal"
@@ -156,7 +158,6 @@ export default function EpisodeDetails() {
             </Button>
           </Stack>
         </Box>
-        {/* ... (previous JSX) */}
       </Box>
     </Container>
   );
