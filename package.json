@@ -27,7 +27,7 @@
     "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.43.1",
     "rsuite": "^5.28.0",
-    "feed"
+    "feed" :"4.2.2"
   },
   "devDependencies": {
     "eslint-plugin-mui-unused-classes": "^2.0.0",
