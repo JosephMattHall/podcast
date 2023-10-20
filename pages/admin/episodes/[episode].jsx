@@ -1,5 +1,3 @@
-// ... (previous imports)
-
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
