@@ -35,7 +35,7 @@ function RSSFeed() {
           title: episode.title,
           description: episode.title, // You can use a different field here for the episode description
           url: episode.audio, // Assuming the audio URL is stored in the "audio" field
-          date: new Date(), // Use the current date or the episode's publish date
+          date: episode.published, // Use the current date or the episode's publish date
         });
       });
 
